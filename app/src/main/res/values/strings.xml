@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">CricScore</string>
+    <string name="confirmed">Confirmed</string>
+    <string name="prize_money">Prize Money</string>
+    <string name="man_of_the_match">Man of The Match</string>
+    <string name="special_instructions">Special Instructions</string>
+    <string name="host">Host</string>
+    <string name="normal">Normal</string>
+    <string name="premium">Premium</string>
+    <string name="tournament_type">Tournament Type</string>
+    <string name="tennis">Tennis</string>
+    <string name="leather">Leather</string>
+    <string name="match_type">Match Type</string>
+    <string name="limited">Limited</string>
+    <string name="unlimited">4-day Match</string>
+    <string name="overs">Overs</string>
+    <string name="_2">2</string>
+    <string name="date">Date</string>
+    <string name="entry_fees">Entry Fees</string>
+    <string name="max_teams">Max Teams</string>
+    <string name="players">Players</string>
+    <string name="minimum">Minimum</string>
+    <string name="match_officials">Match Officials</string>
+    <string name="pending">Pending</string>
+    <string name="man_of_the_series">Man of The Series</string>
+    <string name="save">Save</string>
+    <string name="join">Join</string>
+    <string name="tournaments">TOURNAMENTS</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_booking">Booking</string>
+
+    <string name="NETWORK_ISSUE">"Please check your internet connection and try again."</string>
+    <string name="SOCKET_ISSUE">"The request timed out."</string>
+    <string name="ERROR">"Unable to retrieve details. Please try later."</string>
+    <string name="FORGOTPASSWORD"><u>ForgetPassword?/Login for the first time?</u></string>
+    <string name="dummy_news">The Hilton stadium near 55 \n players at once live.</string>
+    <string name="success">success</string>
+    <string name="no_internet_connection">No internet connection!</string>
+
+    <string name="day">Day</string>
+    <string name="night">Night</string>
+    <string name="weekday">Weekdays</string>
+    <string name="weekends">Weekends</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="gender">Gender Category</string>
+    <string name="age">Age</string>
+    <string name="user_type">User Type</string>
+    <string name="start_date">Start Date</string>
+    <string name="ground_name">Grounds</string>
+    <string name="test_match">Test match</string>
+    <string name="time">Time</string>
+    <string name="by_proceeding_you_are_agreeing_to_the_terms_and_conditions">By Proceeding You are agreeing to the Terms and Conditions</string>
+
+
+</resources>

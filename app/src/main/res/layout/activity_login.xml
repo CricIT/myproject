@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+
+    <LinearLayout
+        android:id="@+id/verifyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/phone_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="51dp"
+                android:layout_marginLeft="51dp"
+                android:layout_marginEnd="51dp"
+                android:background="@drawable/extra_rounded_rect"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+
+                android:paddingEnd="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:weightSum="2">
+
+
+                <com.rilixtech.CountryCodePicker
+                    android:id="@+id/ccp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rect_round_gray"
+
+                    android:splitMotionEvents="false"
+                    app:ccp_countryPreference="IN"
+                    app:ccp_defaultNameCode="IN"
+                    app:ccp_hideNameCode="true"
+                    app:ccp_hidePhoneCode="true"
+                    app:ccp_showFlag="false"
+                    app:ccp_showFullName="false"
+                    app:ccp_textSize="18sp" />
+
+
+                <EditText
+                    android:id="@+id/phone_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@color/white"
+                    android:fontFamily="@font/roboto"
+                    android:inputType="phone"
+                    android:maxEms="10"
+                    android:paddingStart="10dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="18sp" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/t_c"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/phone_code"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:text="@string/by_proceeding_you_are_agreeing_to_the_terms_and_conditions"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+
+            <Button
+                android:id="@+id/loginButton"
+
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_below="@+id/t_c"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/extra_rounded_rect"
+                android:clickable="true"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:paddingStart="27dp"
+                android:paddingLeft="27dp"
+                android:paddingEnd="27dp"
+                android:text="Register"
+                android:textAllCaps="false"
+                android:textColor="#909594"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:progressTint="@color/white"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"
+                android:indeterminateDrawable="@drawable/progress"
+                android:layout_below="@+id/loginButton"
+                android:layout_centerHorizontal="true"/>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/inputCodeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="Verify Your Mobile Number"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+
+            />
+
+
+        <com.goodiebag.pinview.Pinview
+            android:id="@+id/sms_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:isScrollContainer="false"
+            app:cursorVisible="false"
+            app:forceKeyboard="false"
+            app:inputType="number"
+            app:password="false"
+            app:pinHeight="40dp"
+            app:pinLength="4"
+            app:pinWidth="40dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:text="Didn't receive the code?"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:visibility="gone"
+                android:text="Please wait.. "
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+
+                tools:text="0:30 " />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/resend_code"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/extra_rounded_rect"
+            android:fontFamily="@font/roboto"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="Submit"
+            android:textAllCaps="false"
+            android:textColor="#707070"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</RelativeLayout>

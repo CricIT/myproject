@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F2F2F3"
+        android:orientation="vertical">
+
+        <include layout="@layout/custom_toolbar" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="22dp"
+            android:background="@drawable/rect_round"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_rect_lightgreen"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:text="Domestic"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:text="Leauge"
+                android:textColor="@color/tour_list_light_gray"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:text="International"
+                android:textColor="@color/tour_list_light_gray"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/roboto"
+            android:text="Ongoing"
+            android:textAllCaps="true"
+            android:textColor="#909594" />
+
+        <include layout="@layout/score_board" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:fontFamily="@font/roboto"
+            android:text="Cricket Feeds"
+            android:textAllCaps="true"
+            android:textColor="#909594" />
+
+        <include layout="@layout/cricket_feed_layout" />
+    </LinearLayout>
+
+</ScrollView>

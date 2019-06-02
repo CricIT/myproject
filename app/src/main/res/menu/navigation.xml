@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/home"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_tournament"
+        android:icon="@drawable/tournament"
+        android:title="@string/title_dashboard" />
+
+    <item
+        android:id="@+id/navigation_groups"
+        android:icon="@drawable/group"
+        android:title="@string/title_notifications" />
+    <item
+        android:id="@+id/navigation_booking"
+        android:icon="@drawable/booking"
+        android:title="@string/title_booking" />
+
+</menu>
