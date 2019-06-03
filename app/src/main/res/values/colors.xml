@@ -14,5 +14,6 @@
     <color name="light_gray">#1A707070</color>
     <color name="light_blue">#1A603DEF</color>
     <color name="light_purple">#1AA428E1</color>
+    <color name="ansh">#ffffff</color>
 
 </resources>
