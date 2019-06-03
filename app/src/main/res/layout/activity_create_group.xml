@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f2f2f3">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/main_constraint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f2f2f3">
+
+        <include
+            android:id="@+id/include2"
+            layout="@layout/title_with_back_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/iv_tour_banner"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/colorPrimary"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include2" />
+
+        <EditText
+            android:id="@+id/group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_rectangle"
+            android:fontFamily="@font/roboto"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:drawableEnd="@drawable/edit_pen"
+            android:drawablePadding="8dp"
+            android:hint="Group name"
+            android:textColor="@color/gray"
+            android:textSize="14sp"
+            android:padding="8dp"
+            android:textColorHint="@color/light_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_tour_banner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:drawableRight="@drawable/edit_pen" />
+
+        <ImageView
+            android:id="@+id/btn_add_banner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/banner_overlay"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_tour_banner"
+            app:layout_constraintEnd_toEndOf="@+id/iv_tour_banner"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="@+id/iv_tour_banner"
+            app:layout_constraintTop_toTopOf="@+id/iv_tour_banner" />
+
+
+        <View
+            android:id="@+id/background_ground"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+
+
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/rounded_rect_border_only"
+            app:layout_constraintBottom_toTopOf="@+id/tv_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ground" />
+
+        <LinearLayout
+            android:id="@+id/search_panel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ground"
+            android:paddingStart="6dp"
+            android:paddingLeft="6dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="12dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="5dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="13dp"
+            android:background="@drawable/rounded_rect_gray_low">
+
+            <ImageView
+                android:id="@+id/iv_gps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/round_gps" />
+
+
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="45dp"
+                android:fontFamily="@font/roboto"
+                android:hint="Search your place"
+                android:textColor="@color/light_gray"
+                android:textSize="14sp"
+
+                android:drawableEnd="@drawable/round_search"
+                android:drawableRight="@drawable/round_search" />
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/ground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/white_rectangle"
+
+            android:drawableStart="@drawable/eclipsepng"
+            android:drawableLeft="@drawable/eclipsepng"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/roboto"
+            android:paddingEnd="12dp"
+            android:paddingRight="12dp"
+            android:text="Location"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/iv_tour_banner"
+            app:layout_constraintTop_toBottomOf="@+id/group_name"
+            android:paddingStart="4dp"
+            android:paddingLeft="4dp" />
+
+        <View
+            android:id="@+id/background_info"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+
+
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rounded_rect_border_only"
+            app:layout_constraintBottom_toTopOf="@+id/tv_permission"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_info" />
+
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/white_rectangle"
+            android:drawableLeft="@drawable/eclipsepng"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/eclipsepng"
+            android:fontFamily="@font/roboto"
+            android:paddingEnd="12dp"
+            android:paddingRight="12dp"
+            android:text="Info"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/search_panel"
+            app:layout_constraintTop_toBottomOf="@+id/search_panel"
+            android:paddingStart="4dp"
+            android:paddingLeft="4dp" />
+
+        <EditText
+            android:id="@+id/et_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="13dp"
+            android:background="@drawable/ic_rectangle_special_inst"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/roboto"
+            android:paddingBottom="5dp"
+            android:paddingEnd="12dp"
+            android:paddingLeft="6dp"
+            android:paddingRight="12dp"
+            android:paddingStart="6dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/gray"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/search_panel"
+            app:layout_constraintTop_toBottomOf="@+id/tv_info" />
+
+        <View
+            android:id="@+id/background_permission"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+
+
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rounded_rect_border_only"
+            app:layout_constraintBottom_toTopOf="@+id/tv_members"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_permission" />
+
+        <TextView
+            android:id="@+id/tv_permission"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/white_rectangle"
+            android:drawableLeft="@drawable/eclipsepng"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/eclipsepng"
+            android:fontFamily="@font/roboto"
+            android:paddingEnd="12dp"
+            android:paddingRight="12dp"
+            android:text="Permission"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/et_info"
+            app:layout_constraintTop_toBottomOf="@+id/et_info"
+            android:paddingStart="4dp"
+            android:paddingLeft="4dp" />
+
+        <TextView
+            android:id="@+id/per_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="13dp"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/roboto"
+            android:paddingBottom="5dp"
+            android:paddingEnd="12dp"
+            android:paddingLeft="6dp"
+            android:paddingRight="12dp"
+            android:text="Co-Admin can create, delete, add, remove members from teams"
+            android:paddingStart="6dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/gray"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/et_info"
+            app:layout_constraintTop_toBottomOf="@+id/tv_permission" />
+
+        <TextView
+            android:id="@+id/tv_members"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="24dp"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/roboto"
+            android:paddingEnd="12dp"
+            android:paddingRight="12dp"
+            android:text="Members"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/per_one"
+            app:layout_constraintTop_toBottomOf="@+id/per_one"
+            android:paddingStart="4dp"
+            android:paddingLeft="4dp" />
+
+        <Button
+            android:id="@+id/btn_add_members"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/dotted_lightgreen_rect"
+            android:drawableStart="@drawable/green_plus_btn"
+            android:drawableLeft="@drawable/green_plus_btn"
+            android:drawablePadding="8dp"
+            android:paddingStart="40dp"
+            android:paddingLeft="40dp"
+            android:paddingTop="9dp"
+            android:paddingEnd="40dp"
+            android:paddingBottom="9dp"
+            android:text="Add members"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_members" />
+
+
+        <GridView
+            android:id="@+id/gridViewMembers"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:numColumns="5"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_add_members" />
+
+        <Button
+            android:id="@+id/btn_view_members"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/white_rectangle"
+            android:fontFamily="@font/roboto"
+            android:paddingLeft="24dp"
+            android:paddingTop="6dp"
+            android:paddingRight="24dp"
+            android:paddingBottom="6dp"
+            android:text="View All (0)"
+            android:textColor="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gridViewMembers" />
+
+        <Button
+            android:id="@+id/save_group_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/white_rectangle"
+            android:paddingLeft="24dp"
+            android:paddingTop="11dp"
+            android:paddingRight="24dp"
+            android:paddingBottom="11dp"
+            android:text="Save"
+            app:layout_constraintEnd_toStartOf="@+id/btn_publish_group"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_view_members" />
+
+        <Button
+            android:id="@+id/btn_publish_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/rounded_rect_lightgreen"
+            android:textColor="@color/white"
+            android:paddingLeft="24dp"
+            android:paddingTop="11dp"
+            android:paddingRight="24dp"
+            android:paddingBottom="11dp"
+            android:text="Publish"
+            app:layout_constraintBottom_toBottomOf="@+id/save_group_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/btn_view_members"
+            app:layout_constraintTop_toTopOf="@+id/save_group_btn" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
+
+
+
+
