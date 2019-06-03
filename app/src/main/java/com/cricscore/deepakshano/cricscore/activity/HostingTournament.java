@@ -769,14 +769,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                     }
                 }
             });
-
-
-
-
-
-
-
-
         } catch (Exception e) {
             e.getMessage();
             e.printStackTrace();
