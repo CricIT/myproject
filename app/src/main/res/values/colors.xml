@@ -12,5 +12,7 @@
     <color name="orange">  #F5B638</color>
     <color name="blue">#603DEF</color>
     <color name="light_gray">#1A707070</color>
+    <color name="light_blue">#1A603DEF</color>
+    <color name="light_purple">#1AA428E1</color>
 
 </resources>
