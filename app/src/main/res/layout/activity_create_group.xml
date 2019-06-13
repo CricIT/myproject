@@ -11,6 +11,7 @@
         android:id="@+id/main_constraint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+       android:layout_marginBottom="100dp"
         android:background="#f2f2f3">
 
         <include
@@ -379,17 +380,17 @@
             android:id="@+id/save_group_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/white_rectangle"
-            android:paddingLeft="24dp"
-            android:paddingTop="11dp"
-            android:paddingRight="24dp"
             android:paddingBottom="11dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="11dp"
             android:text="Save"
+            android:layout_marginBottom="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_publish_group"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_view_members" />
@@ -398,21 +399,23 @@
             android:id="@+id/btn_publish_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/rounded_rect_lightgreen"
-            android:textColor="@color/white"
-            android:paddingLeft="24dp"
-            android:paddingTop="11dp"
-            android:paddingRight="24dp"
             android:paddingBottom="11dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="11dp"
             android:text="Publish"
+            android:textColor="@color/white"
+           
             app:layout_constraintBottom_toBottomOf="@+id/save_group_btn"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.577"
             app:layout_constraintStart_toStartOf="@+id/btn_view_members"
-            app:layout_constraintTop_toTopOf="@+id/save_group_btn" />
+            app:layout_constraintTop_toTopOf="@+id/save_group_btn"
+            app:layout_constraintVertical_bias="1.0" />
 
 
     </android.support.constraint.ConstraintLayout>
