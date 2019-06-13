@@ -40,6 +40,7 @@ import com.cricscore.deepakshano.cricscore.services.APIMethods;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -95,7 +96,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
             context = this;
             progressDialog = new ProgressDialog(HostingTournament.this);
             intent = getIntent();
-
             et_tour_name = findViewById(R.id.tour_name);
             et_overs = findViewById(R.id.et_overs);
             tv_start_date = findViewById(R.id.tv_start_date);
@@ -171,8 +171,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                                 R.drawable.rect_round));
                         tv_Premium.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                         GlobalClass.setMargins(tv_free, 4, 2, 0, 4);
-                        tv_free.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        tv_Premium.setTextColor(getResources().getColor(R.color.gray));
                         category = 1;
                         tv_Premium.setError(null);
                         tv_free.setError(null);
@@ -192,8 +190,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                         tv_free.setBackground(getResources().getDrawable(
                                 R.drawable.rect_round));
                         tv_free.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_Premium.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        tv_free.setTextColor(getResources().getColor(R.color.gray));
                         category = 2;
                         tv_Premium.setError(null);
                         tv_free.setError(null);
@@ -214,8 +210,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                         tv_female.setBackground(getResources().getDrawable(
                                 R.drawable.rect_round));
                         tv_female.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_male.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        tv_female.setTextColor(getResources().getColor(R.color.gray));
                         tv_female.setError(null);
                         tv_male.setError(null);
                     } catch (Exception e) {
@@ -235,9 +229,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                         tv_male.setBackground(getResources().getDrawable(
                                 R.drawable.rect_round));
                         tv_male.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_female.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        tv_male.setTextColor(getResources().getColor(R.color.gray));
-
                         tv_female.setError(null);
                         tv_male.setError(null);
                     } catch (Exception e) {
@@ -257,10 +248,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                         tv_weekday.setBackground(getResources().getDrawable(
                                 R.drawable.rect_round));
                         tv_weekday.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-
-                        tv_weekend.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        tv_weekday.setTextColor(getResources().getColor(R.color.gray));
-
                         tv_weekend.setError(null);
                         tv_weekday.setError(null);
                     } catch (Exception e) {
@@ -281,10 +268,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                         tv_weekend.setBackground(getResources().getDrawable(
                                 R.drawable.rect_round));
                         tv_weekend.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-
-                        tv_weekday.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        tv_weekend.setTextColor(getResources().getColor(R.color.gray));
-
                         tv_weekend.setError(null);
                         tv_weekday.setError(null);
                     } catch (Exception e) {
@@ -305,9 +288,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                         tv_night.setBackground(getResources().getDrawable(
                                 R.drawable.rect_round));
                         tv_night.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_day.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        tv_night.setTextColor(getResources().getColor(R.color.gray));
-
                         tv_night.setError(null);
                         tv_day.setError(null);
                     } catch (Exception e) {
@@ -327,10 +307,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                         tv_day.setBackground(getResources().getDrawable(
                                 R.drawable.rect_round));
                         tv_day.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-
-                        tv_night.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        tv_day.setTextColor(getResources().getColor(R.color.gray));
-
                         tv_night.setError(null);
                         tv_day.setError(null);
                     } catch (Exception e) {
@@ -352,8 +328,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                         tv_tennis.setBackground(getResources().getDrawable(
                                 R.drawable.rect_round));
                         tv_tennis.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_leather.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        tv_tennis.setTextColor(getResources().getColor(R.color.gray));
                         tounament_type = 1;
                         tv_leather.setError(null);
                         tv_tennis.setError(null);
@@ -374,8 +348,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                         tv_leather.setBackground(getResources().getDrawable(
                                 R.drawable.rect_round));
                         tv_leather.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_tennis.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        tv_leather.setTextColor(getResources().getColor(R.color.gray));
                         tounament_type = 2;
                         tv_leather.setError(null);
                         tv_tennis.setError(null);
@@ -398,8 +370,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                         tv_unlimited.setBackground(getResources().getDrawable(
                                 R.drawable.rect_round));
                         tv_unlimited.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_limited.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        tv_unlimited.setTextColor(getResources().getColor(R.color.gray));
+
                         match_type = true;
                         lyt_overs.setVisibility(View.VISIBLE);
                     } catch (Exception e) {
@@ -418,8 +389,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                         tv_limited.setBackground(getResources().getDrawable(
                                 R.drawable.rect_round));
                         tv_limited.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_unlimited.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        tv_limited.setTextColor(getResources().getColor(R.color.gray));
                         match_type = false;
                         lyt_overs.setVisibility(View.GONE);
                     } catch (Exception e) {
@@ -547,23 +516,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 public void onClick(View v) {
                     try {
                         agegroup = "10";
-                        tv_ten_teams.setBackground(getResources().getDrawable(
-                                R.drawable.rounded_rect_lightgreen_low));
-                        tv_ten_teams.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-                        tv_fifteen_teams.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_fifteen_teams.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_twenty_teams.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_twenty_teams.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_custom_teams.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_custom_teams.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_ten_teams.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        tv_fifteen_teams.setTextColor(getResources().getColor(R.color.gray));
-                        tv_twenty_teams.setTextColor(getResources().getColor(R.color.gray));
-                        tv_custom_teams.setTextColor(getResources().getColor(R.color.gray));
-                        tv_custom_teams.setText("");
+                        selectedstatus(tv_ten_teams,tv_fifteen_teams,tv_twenty_teams,tv_custom_teams);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -574,23 +527,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 public void onClick(View v) {
                     try {
                         agegroup = "15";
-                        tv_fifteen_teams.setBackground(getResources().getDrawable(
-                                R.drawable.rounded_rect_lightgreen_low));
-                        tv_fifteen_teams.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-                        tv_ten_teams.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_ten_teams.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_twenty_teams.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_twenty_teams.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_custom_teams.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_custom_teams.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_fifteen_teams.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        tv_ten_teams.setTextColor(getResources().getColor(R.color.gray));
-                        tv_twenty_teams.setTextColor(getResources().getColor(R.color.gray));
-                        tv_custom_teams.setTextColor(getResources().getColor(R.color.gray));
-                        tv_custom_teams.setText("");
+                        selectedstatus(tv_fifteen_teams,tv_ten_teams,tv_twenty_teams,tv_custom_teams);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -601,23 +538,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 public void onClick(View v) {
                     try {
                         agegroup = "20";
-                        tv_twenty_teams.setBackground(getResources().getDrawable(
-                                R.drawable.rounded_rect_lightgreen_low));
-                        tv_twenty_teams.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-                        tv_fifteen_teams.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_fifteen_teams.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_ten_teams.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_ten_teams.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_custom_teams.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_custom_teams.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_twenty_teams.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        tv_ten_teams.setTextColor(getResources().getColor(R.color.gray));
-                        tv_fifteen_teams.setTextColor(getResources().getColor(R.color.gray));
-                        tv_custom_teams.setTextColor(getResources().getColor(R.color.gray));
-                        tv_custom_teams.setText("");
+                        selectedstatus(tv_twenty_teams,tv_ten_teams,tv_fifteen_teams,tv_custom_teams);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -632,22 +553,8 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                         String custom_age_group = tv_custom_teams.getText().toString();
                         if (!custom_age_group.equals(agegroup)) {
                             agegroup = custom_age_group;
-                            tv_custom_teams.setBackground(getResources().getDrawable(
-                                    R.drawable.rounded_rect_lightgreen_low));
-                            tv_custom_teams.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-                            tv_twenty_teams.setBackground(getResources().getDrawable(
-                                    R.drawable.rect_round));
-                            tv_twenty_teams.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                            tv_fifteen_teams.setBackground(getResources().getDrawable(
-                                    R.drawable.rect_round));
-                            tv_fifteen_teams.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                            tv_ten_teams.setBackground(getResources().getDrawable(
-                                    R.drawable.rect_round));
-                            tv_ten_teams.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                            tv_custom_teams.setTextColor(getResources().getColor(R.color.colorPrimary));
-                            tv_ten_teams.setTextColor(getResources().getColor(R.color.gray));
-                            tv_fifteen_teams.setTextColor(getResources().getColor(R.color.gray));
-                            tv_twenty_teams.setTextColor(getResources().getColor(R.color.gray));
+                            selectedstatuscustom(tv_custom_teams,tv_ten_teams,tv_fifteen_teams,tv_twenty_teams);
+
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -659,25 +566,8 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
-
                         usertype = "12";
-                        tv_twelve_players.setBackground(getResources().getDrawable(
-                                R.drawable.rounded_rect_lightgreen_low));
-                        tv_twelve_players.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-                        tv_fifteen_players.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_fifteen_players.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_twenty_players.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_twenty_players.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        et_custom_players.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        et_custom_players.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_twelve_players.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        tv_fifteen_players.setTextColor(getResources().getColor(R.color.gray));
-                        et_custom_players.setTextColor(getResources().getColor(R.color.gray));
-                        tv_twenty_players.setTextColor(getResources().getColor(R.color.gray));
-                        et_custom_players.setText("");
+                        selectedstatus(tv_twelve_players,tv_fifteen_players,tv_twenty_players,et_custom_players);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -690,23 +580,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 public void onClick(View v) {
                     try {
                         usertype = "15";
-                        tv_fifteen_players.setBackground(getResources().getDrawable(
-                                R.drawable.rounded_rect_lightgreen_low));
-                        tv_fifteen_players.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-                        tv_twelve_players.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_twelve_players.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_twenty_players.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_twenty_players.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        et_custom_players.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        et_custom_players.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_fifteen_players.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        tv_twelve_players.setTextColor(getResources().getColor(R.color.gray));
-                        tv_twenty_players.setTextColor(getResources().getColor(R.color.gray));
-                        et_custom_players.setTextColor(getResources().getColor(R.color.gray));
-                        et_custom_players.setText("");
+                        selectedstatus(tv_fifteen_players,tv_twelve_players,tv_twenty_players,et_custom_players);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -717,23 +591,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 public void onClick(View v) {
                     try {
                         usertype = "20";
-                        tv_twenty_players.setBackground(getResources().getDrawable(
-                                R.drawable.rounded_rect_lightgreen_low));
-                        tv_twenty_players.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-                        tv_fifteen_players.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_fifteen_players.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_twelve_players.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_twelve_players.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        et_custom_players.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        et_custom_players.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                        tv_twenty_players.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        tv_twelve_players.setTextColor(getResources().getColor(R.color.gray));
-                        tv_fifteen_players.setTextColor(getResources().getColor(R.color.gray));
-                        et_custom_players.setTextColor(getResources().getColor(R.color.gray));
-                        et_custom_players.setText("");
+                        selectedstatus(tv_twenty_players,tv_fifteen_players,tv_twelve_players,et_custom_players);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -746,23 +604,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                         usertype = "20";
                         String custom_players_group = et_custom_players.getText().toString();
                         if (!custom_players_group.equals(usertype)){
-                            et_custom_players.setBackground(getResources().getDrawable(
-                                    R.drawable.rounded_rect_lightgreen_low));
-                            et_custom_players.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-                            tv_twenty_players.setBackground(getResources().getDrawable(
-                                    R.drawable.rect_round));
-                            tv_twenty_players.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                            tv_fifteen_players.setBackground(getResources().getDrawable(
-                                    R.drawable.rect_round));
-                            tv_fifteen_players.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                            tv_twelve_players.setBackground(getResources().getDrawable(
-                                    R.drawable.rect_round));
-                            tv_twelve_players.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                            et_custom_players.setTextColor(getResources().getColor(R.color.colorPrimary));
-                            tv_twenty_players.setTextColor(getResources().getColor(R.color.gray));
-                            tv_fifteen_teams.setTextColor(getResources().getColor(R.color.gray));
-                            tv_twelve_players.setTextColor(getResources().getColor(R.color.gray));
-
+                            selectedstatuscustom(et_custom_players,tv_twelve_players,tv_fifteen_players,tv_twenty_players);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -775,6 +617,38 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
         }
 
     }
+    public void selectedstatuscustom(EditText et_Custom, TextView Tv_one,TextView tv_two,TextView tv_three){
+        et_Custom.setBackground(getResources().getDrawable(
+                R.drawable.rounded_rect_lightgreen_low));
+        et_Custom.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
+        Tv_one.setBackground(getResources().getDrawable(
+                R.drawable.rect_round));
+        Tv_one.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        tv_two.setBackground(getResources().getDrawable(
+                R.drawable.rect_round));
+        tv_two.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        tv_three.setBackground(getResources().getDrawable(
+                R.drawable.rect_round));
+        tv_three.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+
+    }
+    public void selectedstatus(TextView tv_one, TextView Tv_two,TextView tv_three,EditText et_one){
+        tv_one.setBackground(getResources().getDrawable(
+                R.drawable.rounded_rect_lightgreen_low));
+       tv_one.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
+        Tv_two.setBackground(getResources().getDrawable(
+                R.drawable.rect_round));
+        Tv_two.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        tv_three.setBackground(getResources().getDrawable(
+                R.drawable.rect_round));
+       tv_three.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        et_one.setBackground(getResources().getDrawable(
+                R.drawable.rect_round));
+        et_one.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        et_one.setText("");
+    }
+
+
 
     private void tourTypePopUp() {
         try {

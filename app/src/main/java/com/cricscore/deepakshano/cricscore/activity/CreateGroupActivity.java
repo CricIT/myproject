@@ -1,116 +1,124 @@
-package com.cricscore.deepakshano.cricscore.fragment;
+package com.cricscore.deepakshano.cricscore.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.cricscore.deepakshano.cricscore.R;
-import com.cricscore.deepakshano.cricscore.activity.CreateGroupActivity;
 import com.cricscore.deepakshano.cricscore.adapter.AllGroupListAdapter;
 import com.cricscore.deepakshano.cricscore.helper.CustomMessageHelper;
 import com.cricscore.deepakshano.cricscore.helper.GlobalClass;
+import com.cricscore.deepakshano.cricscore.model.CreateGroupModelClass;
+import com.cricscore.deepakshano.cricscore.pojo.GeneralPojoClass;
 import com.cricscore.deepakshano.cricscore.pojo.GetAllGroupsListPojoClass;
-import com.cricscore.deepakshano.cricscore.pojo.GroupListData;
-import com.cricscore.deepakshano.cricscore.pojo.VerifyOtpPojo;
 import com.cricscore.deepakshano.cricscore.retrofit.ClientServiceGenerator;
 import com.cricscore.deepakshano.cricscore.services.APIMethods;
 
 import java.net.SocketTimeoutException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.cricscore.deepakshano.cricscore.helper.GlobalClass.hideView;
-
 /**
- * Created by Deepak Shano on 3/4/2019.
+ * Created by Deepak Shano on 6/5/2019.
  */
 
-public class GroupsFragment extends Fragment {
+public class CreateGroupActivity  extends AppCompatActivity {
 
-    private List<GroupListData> getAllGroupsListPojoClass = new ArrayList<>();;
-    private Context context;
+
+    ImageView iv_group_banner;
+    Context context;
+    TextView tv_location;
+    EditText et_group_desc;
+    EditText group_name;
+    Button btn_view_members,btn_add_members,btn_publish_group;
     private ProgressDialog dialog;
-    RecyclerView group_lst_recycler_view;
-    AllGroupListAdapter allGroupListAdapter;
-    Button create_group_btn;
-    @Nullable
+    CreateGroupModelClass createGroupModelClass;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.group_fragment, null);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_create_group);
         try {
-           context = getActivity();
-           group_lst_recycler_view=view.findViewById(R.id.group_lst_recycler_view);
-            create_group_btn=view.findViewById(R.id.create_group_btn);
-           dialog = new ProgressDialog(context);
-           getallGroupsList();
-            create_group_btn.setOnClickListener(new View.OnClickListener() {
+            context = this;
+            dialog = new ProgressDialog(context);
+            iv_group_banner = findViewById(R.id.iv_group_banner);
+            tv_location=findViewById(R.id.tv_location);
+            group_name=findViewById(R.id.group_name);
+            et_group_desc=findViewById(R.id.et_group_desc);
+            btn_view_members=findViewById(R.id.btn_view_members);
+            btn_add_members=findViewById(R.id.btn_add_members);
+            btn_publish_group=findViewById(R.id.btn_publish_group);
+            createGroupModelClass=new CreateGroupModelClass();
+            btn_add_members.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    try {
-                        Intent intent = new Intent(context, CreateGroupActivity.class);
-                        startActivity(intent);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                        e.getMessage();
-                    }
+
+                }
+            });
+            btn_view_members.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
                 }
             });
 
-       }catch (Exception e){
-           e.printStackTrace();
-       }
-        return view;
+            btn_publish_group.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(checkdeatils()) {
+                        getallGroupsList();
+                    }
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+            e.getMessage();
+        }
+    }
+
+    private boolean checkdeatils() {
+        createGroupModelClass.setDescription(et_group_desc.getText().toString());
+        createGroupModelClass.setGroupName(group_name.getText().toString());
+
+
+        return true;
     }
 
     private void getallGroupsList() {
         try {
-            getAllGroupsListPojoClass.clear();
+            Map<String, String> map = new HashMap<>();
+
             dialog.setMessage("please wait.");
             dialog.setCancelable(false);
             dialog.show();
             APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
-            Map<String, String> map = new HashMap<>();
-            map.put("Authorization","Bearer "+GlobalClass.usertoken);
-            Call<GetAllGroupsListPojoClass> call = api.getGroundList(map);
-            call.enqueue(new Callback<GetAllGroupsListPojoClass>() {
+            map.clear();
+            map.put("Authorization","Bearer "+ GlobalClass.usertoken);
+            Call<GeneralPojoClass> call = api.creategroup(map,createGroupModelClass);
+            call.enqueue(new Callback<GeneralPojoClass>() {
                 @Override
-                public void onResponse(Call<GetAllGroupsListPojoClass> call, Response<GetAllGroupsListPojoClass> response) {
+                public void onResponse(Call<GeneralPojoClass> call, Response<GeneralPojoClass> response) {
                     try {
                         if (response.isSuccessful()) {
                             if (response.body().getRequestStatus() == 1) {
                                 try {
-                                    getAllGroupsListPojoClass = response.body().getData();
                                     dismissDialog();
-                                    allGroupListAdapter = new AllGroupListAdapter(getActivity(), getAllGroupsListPojoClass, new AllGroupListAdapter.GrouplistAdapterAdapterListener() {
-                                        @Override
-                                        public void onItemClickListener(int position) {
-
-                                        }
-                                    });
-                                    group_lst_recycler_view.setHasFixedSize(true);
-                                    group_lst_recycler_view.setLayoutManager(new GridLayoutManager(context, 2));
-                                    group_lst_recycler_view.setAdapter(allGroupListAdapter);
-                                    group_lst_recycler_view.setVisibility(View.VISIBLE);
+                                    CustomMessageHelper showDialog = new CustomMessageHelper(context);
+                                    showDialog.showCustomMessage((Activity) context, "Alert!!", "Group Created Sucessfully", false, false);
                                 }catch (Exception e){
                                     e.printStackTrace();
                                 }
@@ -130,7 +138,7 @@ public class GroupsFragment extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<GetAllGroupsListPojoClass> call, Throwable t) {
+                public void onFailure(Call<GeneralPojoClass> call, Throwable t) {
                     try {
                         Log.d("INSIDE FAILURE", "****");
                         if (t instanceof SocketTimeoutException) {
@@ -169,5 +177,4 @@ public class GroupsFragment extends Fragment {
             return;
         }
     }
-
 }

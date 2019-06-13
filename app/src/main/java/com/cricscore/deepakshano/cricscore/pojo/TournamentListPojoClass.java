@@ -11,6 +11,7 @@ public class TournamentListPojoClass extends GeneralPojoClass {
     @SerializedName("list")
     @Expose
     private List<tournamentlist> list = null;
+
     @SerializedName("groundList")
     @Expose
     private List<GroundList> groundList = null;

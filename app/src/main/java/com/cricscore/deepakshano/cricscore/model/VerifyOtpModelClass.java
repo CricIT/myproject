@@ -1,16 +1,17 @@
-package com.cricscore.deepakshano.cricscore.pojo;
+package com.cricscore.deepakshano.cricscore.model;
 
+import com.cricscore.deepakshano.cricscore.pojo.GeneralPojoClass;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LoginMobile {
+public class VerifyOtpModelClass {
 
     @SerializedName("mobile")
     @Expose
     private String mobile;
-    @SerializedName("countryCode")
+    @SerializedName("otp")
     @Expose
-    private String countryCode;
+    private String otp;
 
     public String getMobile() {
         return mobile;
@@ -20,11 +21,11 @@ public class LoginMobile {
         this.mobile = mobile;
     }
 
-    public String getCountryCode() {
-        return countryCode;
+    public String getOtp() {
+        return otp;
     }
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
+    public void setOtp(String otp) {
+        this.otp = otp;
     }
 }

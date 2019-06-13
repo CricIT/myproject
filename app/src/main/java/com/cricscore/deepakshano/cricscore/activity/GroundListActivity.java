@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -49,6 +50,7 @@ public class GroundListActivity extends AppCompatActivity {
     private LinearLayout parent;
     private String groundName;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,7 @@ public class GroundListActivity extends AppCompatActivity {
         try {
             gnd_lst_recycler_view = findViewById(R.id.gnd_lst_recycler_view);
             parent = findViewById(R.id.parent_ground);
+
             dialog = new ProgressDialog(GroundListActivity.this);
             dialog.show();
             dialog.setMessage("Please Wait..");

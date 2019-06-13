@@ -13,6 +13,7 @@ import com.cricscore.deepakshano.cricscore.fragment.GroupsFragment;
 import com.cricscore.deepakshano.cricscore.fragment.InternationalFragment;
 import com.cricscore.deepakshano.cricscore.fragment.TournamentFragment;
 import com.cricscore.deepakshano.cricscore.helper.BottomNavigationViewHelper;
+import com.cricscore.deepakshano.cricscore.helper.GlobalClass;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setContentView(R.layout.activity_main);
         try {
             loadFragment(new InternationalFragment());
+            LoadGlobalvariables();
             BottomNavigationView navigation = findViewById(R.id.navigation);
             BottomNavigationViewHelper.disableShiftMode(navigation);
             navigation.setOnNavigationItemSelectedListener(this);
@@ -80,6 +82,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
         return false;
     }
-
+    private void LoadGlobalvariables() {
+        GlobalClass.sharedPreferences = getApplicationContext().getSharedPreferences("User", 0);
+        GlobalClass.usertoken = GlobalClass.sharedPreferences.getString("UserToken", null);
+        GlobalClass.mobileNumber = GlobalClass.sharedPreferences.getString("MobileNumber", null);
+    }
 
 }
