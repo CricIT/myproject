@@ -4,18 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/CardView.Light"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/group_content_background">
 
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circleImageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:id="@+id/groupImageView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/group_icon"
+            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,22 +29,21 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Banglore Royals"
-            android:textColor="@color/lightgray_scoreboard_normal"
+            android:textColor="@color/gray"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/circleImageView"
-            app:layout_constraintStart_toStartOf="@+id/circleImageView"
-            app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
+            app:layout_constraintEnd_toEndOf="@+id/groupImageView"
+            app:layout_constraintStart_toStartOf="@+id/groupImageView"
+            app:layout_constraintTop_toBottomOf="@+id/groupImageView" />
 
         <TextView
-            android:id="@+id/members_count"
+            android:id="@+id/group_members_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="75 members"
+            android:layout_marginTop="4dp"
             android:textSize="14sp"
+            android:textColor="@color/lightgray"
             app:layout_constraintEnd_toEndOf="@+id/group_name"
             app:layout_constraintHorizontal_bias="0.454"
             app:layout_constraintStart_toStartOf="@+id/group_name"
@@ -52,35 +53,42 @@
             android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal"
             android:padding="2dp"
-            app:layout_constraintEnd_toEndOf="@+id/members_count"
-            app:layout_constraintStart_toStartOf="@+id/members_count"
-            app:layout_constraintTop_toBottomOf="@+id/members_count">
+            app:layout_constraintEnd_toEndOf="@+id/group_members_count"
+            app:layout_constraintStart_toStartOf="@+id/group_members_count"
+            app:layout_constraintTop_toBottomOf="@+id/group_members_count">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/user_img1"
-                android:layout_width="40dp"
-                android:layout_height="40dp" />
+                android:src="@drawable/usr_1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="15dp"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/user_img2"
-                android:layout_width="40dp"
-                android:layout_height="40dp" />
+                android:src="@drawable/usr_2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="15dp"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/usre_img3"
-                android:layout_width="40dp"
-                android:layout_height="40dp" />
+                android:src="@drawable/usr_3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="15dp"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/usre_img4"
-                android:layout_width="40dp"
-                android:layout_height="40dp" />
+                android:src="@drawable/usr_4"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="15dp"/>
         </LinearLayout>
 
         <ImageView

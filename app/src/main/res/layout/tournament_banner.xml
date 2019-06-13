@@ -7,7 +7,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
-        android:id="@+id/iv_tour_banner"
+        android:id="@+id/iv_group_banner"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginStart="8dp"
@@ -39,7 +39,7 @@
         android:textSize="14sp"
         android:padding="8dp"
         android:textColorHint="@color/gray"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_tour_banner"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_group_banner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:drawableRight="@drawable/edit_pen" />
@@ -49,11 +49,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/banner_overlay"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_tour_banner"
-        app:layout_constraintEnd_toEndOf="@+id/iv_tour_banner"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_group_banner"
+        app:layout_constraintEnd_toEndOf="@+id/iv_group_banner"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@+id/iv_tour_banner"
-        app:layout_constraintTop_toTopOf="@+id/iv_tour_banner" />
+        app:layout_constraintStart_toStartOf="@+id/iv_group_banner"
+        app:layout_constraintTop_toTopOf="@+id/iv_group_banner" />
 
 
 

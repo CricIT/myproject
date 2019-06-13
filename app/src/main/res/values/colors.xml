@@ -7,6 +7,8 @@
     <color name="lightgray_scoreboard_normal">#989898</color>
     <color name="gray">#707070</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="lightgray">#909594</color>
     <color name="purple">#A428E1</color>
     <color name="tour_list_light_gray">#909594</color>
     <color name="orange">  #F5B638</color>
@@ -14,9 +16,6 @@
     <color name="light_gray">#1A707070</color>
     <color name="light_blue">#1A603DEF</color>
     <color name="light_purple">#1AA428E1</color>
-    <color name="ansh">#ffffff</color>
-    <color name="anshhh">#ffffff</color>
-    <color name="Deepak">#ffffff</color>
 
 
 </resources>

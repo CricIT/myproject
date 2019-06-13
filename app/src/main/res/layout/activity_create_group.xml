@@ -29,16 +29,14 @@
 
 
         <ImageView
-            android:id="@+id/iv_tour_banner"
+            android:id="@+id/iv_group_banner"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:background="@color/colorPrimary"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +57,7 @@
             android:textSize="14sp"
             android:padding="8dp"
             android:textColorHint="@color/light_gray"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_tour_banner"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_group_banner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:drawableRight="@drawable/edit_pen" />
@@ -69,11 +67,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/banner_overlay"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_tour_banner"
-            app:layout_constraintEnd_toEndOf="@+id/iv_tour_banner"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_group_banner"
+            app:layout_constraintEnd_toEndOf="@+id/iv_group_banner"
             app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="@+id/iv_tour_banner"
-            app:layout_constraintTop_toTopOf="@+id/iv_tour_banner" />
+            app:layout_constraintStart_toStartOf="@+id/iv_group_banner"
+            app:layout_constraintTop_toTopOf="@+id/iv_group_banner" />
 
 
         <View
@@ -161,7 +159,7 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/iv_tour_banner"
+            app:layout_constraintStart_toStartOf="@+id/iv_group_banner"
             app:layout_constraintTop_toBottomOf="@+id/group_name"
             android:paddingStart="4dp"
             android:paddingLeft="4dp" />
@@ -211,7 +209,7 @@
             android:paddingLeft="4dp" />
 
         <EditText
-            android:id="@+id/et_info"
+            android:id="@+id/et_group_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="45dp"
@@ -271,8 +269,8 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/et_info"
-            app:layout_constraintTop_toBottomOf="@+id/et_info"
+            app:layout_constraintStart_toStartOf="@+id/et_group_desc"
+            app:layout_constraintTop_toBottomOf="@+id/et_group_desc"
             android:paddingStart="4dp"
             android:paddingLeft="4dp" />
 
@@ -296,7 +294,7 @@
             android:paddingTop="5dp"
             android:textColor="@color/gray"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/et_info"
+            app:layout_constraintStart_toStartOf="@+id/et_group_desc"
             app:layout_constraintTop_toBottomOf="@+id/tv_permission" />
 
         <TextView

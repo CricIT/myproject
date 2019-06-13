@@ -29,7 +29,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="groups">Groups</string>
     <string name="title_booking">Booking</string>
 
     <string name="NETWORK_ISSUE">"Please check your internet connection and try again."</string>
