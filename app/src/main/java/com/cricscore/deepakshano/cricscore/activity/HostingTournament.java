@@ -697,7 +697,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 // Log.d(TAG, String.valueOf(bitmap));
 
-                ImageView iv_tour_banner = (ImageView) findViewById(R.id.iv_tour_banner);
+                ImageView iv_tour_banner = (ImageView) findViewById(R.id.iv_group_banner);
                 iv_tour_banner.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
