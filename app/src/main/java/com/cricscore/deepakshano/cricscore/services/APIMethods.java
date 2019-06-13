@@ -5,6 +5,7 @@ import com.cricscore.deepakshano.cricscore.model.LoginMobileModelClass;
 import com.cricscore.deepakshano.cricscore.model.VerifyOtpModelClass;
 import com.cricscore.deepakshano.cricscore.pojo.GeneralPojoClass;
 import com.cricscore.deepakshano.cricscore.pojo.GetAllGroupsListPojoClass;
+import com.cricscore.deepakshano.cricscore.pojo.GroupDetailsPojo;
 import com.cricscore.deepakshano.cricscore.pojo.PaginatedGroundListPoJo;
 import com.cricscore.deepakshano.cricscore.pojo.TournamentListPojoClass;
 import com.cricscore.deepakshano.cricscore.model.HosttournamentParametersModelClass;
@@ -20,6 +21,7 @@ import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface APIMethods {
@@ -41,10 +43,19 @@ public interface APIMethods {
     Call<VerifyOtpPojo> verifyOtp(@Body VerifyOtpModelClass verifyOtp);
 
     @GET("group/userGroups")
-    Call<GetAllGroupsListPojoClass> getGroundList(@HeaderMap Map<String, String> headers);
+    Call<GetAllGroupsListPojoClass> getGroupList(@HeaderMap Map<String, String> headers);
 
 
     @Headers({"Content-Type:application/x-www-form-urlencoded"})
     @GET("group/create")
     Call<GeneralPojoClass> creategroup(@HeaderMap Map<String, String> headers,@Body CreateGroupModelClass createGroupModelClass);
+
+    @GET("group/info/{groupid}")
+    Call<GroupDetailsPojo> getgroupdetails(@Path("groupid") String groupid,@HeaderMap Map<String, String> headers);
+
+
+
+
+
+
 }

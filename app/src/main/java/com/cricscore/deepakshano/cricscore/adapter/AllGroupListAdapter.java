@@ -1,7 +1,9 @@
 package com.cricscore.deepakshano.cricscore.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cricscore.deepakshano.cricscore.R;
+import com.cricscore.deepakshano.cricscore.activity.GroupDetailsActivity;
 import com.cricscore.deepakshano.cricscore.pojo.GroupListData;
 import com.cricscore.deepakshano.cricscore.pojo.HostingGroundList;
 
@@ -49,6 +52,19 @@ public class AllGroupListAdapter extends RecyclerView.Adapter<AllGroupListAdapte
         try {
             holder.group_name.setText(getAllGroupsListPojoClass.get(position).getGroupName());
             holder.group_members_count.setText(getAllGroupsListPojoClass.get(position).getMembers().size()+" Members");
+            holder.lyt_card_group_content.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        Intent intent = new Intent(context, GroupDetailsActivity.class);
+                        intent.putExtra("group_id", getAllGroupsListPojoClass.get(position).getId());
+                        context.startActivity(intent);
+                    }catch (Exception e){
+                        e.getMessage();
+                        e.printStackTrace();
+                    }
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
             e.getMessage();
@@ -66,12 +82,13 @@ public class AllGroupListAdapter extends RecyclerView.Adapter<AllGroupListAdapte
 
         public ImageView groupImageView;
         public TextView group_name,group_members_count;
-
+        public CardView lyt_card_group_content;
         public ViewHolder(View view) {
             super(view);
             groupImageView = itemView.findViewById(R.id.groupImageView);
             group_name = itemView.findViewById(R.id.group_name);
             group_members_count = itemView.findViewById(R.id.group_members_count);
+            lyt_card_group_content = itemView.findViewById(R.id.lyt_card_group_content);
         }
     }
 }

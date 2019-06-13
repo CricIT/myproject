@@ -91,7 +91,7 @@ public class GroupsFragment extends Fragment {
             APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
             Map<String, String> map = new HashMap<>();
             map.put("Authorization","Bearer "+GlobalClass.usertoken);
-            Call<GetAllGroupsListPojoClass> call = api.getGroundList(map);
+            Call<GetAllGroupsListPojoClass> call = api.getGroupList(map);
             call.enqueue(new Callback<GetAllGroupsListPojoClass>() {
                 @Override
                 public void onResponse(Call<GetAllGroupsListPojoClass> call, Response<GetAllGroupsListPojoClass> response) {
@@ -120,6 +120,7 @@ public class GroupsFragment extends Fragment {
                                 showDialog.showCustomMessage((Activity) context, "Alert!!", getString(R.string.ERROR), false, false);
                             }
                         }else{
+                            dismissDialog();
                             CustomMessageHelper showDialog = new CustomMessageHelper(context);
                             showDialog.showCustomMessage((Activity) context, "Alert!!",response.message(), false, false);
                         }
