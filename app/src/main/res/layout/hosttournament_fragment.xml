@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,14 +27,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/iv_tour_banner"
+            android:id="@+id/iv_group_banner"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:background="@color/colorPrimary"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,32 +42,38 @@
             android:id="@+id/tour_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:background="@drawable/white_rectangle"
             android:drawableEnd="@drawable/edit_pen"
-            android:drawablePadding="8dp"
             android:drawableRight="@drawable/edit_pen"
+            android:drawablePadding="8dp"
+
             android:fontFamily="@font/roboto"
             android:hint="Tournament Name"
-            android:padding="8dp"
+            android:padding="4dp"
+            android:textAlignment="center"
             android:paddingLeft="4dp"
+            android:singleLine="true"
             android:paddingRight="4dp"
             android:textColor="@color/gray"
             android:textColorHint="@color/gray"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_tour_banner"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_group_banner"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_group_banner"
+            android:layout_marginLeft="8dp" />
 
         <ImageView
             android:id="@+id/btn_add_banner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/banner_overlay"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_tour_banner"
-            app:layout_constraintEnd_toEndOf="@+id/iv_tour_banner"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_group_banner"
+            app:layout_constraintEnd_toEndOf="@+id/iv_group_banner"
             app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="@+id/iv_tour_banner"
-            app:layout_constraintTop_toTopOf="@+id/iv_tour_banner" />
+            app:layout_constraintStart_toStartOf="@+id/iv_group_banner"
+            app:layout_constraintTop_toTopOf="@+id/iv_group_banner" />
 
         <LinearLayout
             android:id="@+id/layout_category"
@@ -106,7 +109,7 @@
                 android:paddingStart="4dp"
                 android:paddingTop="5dp"
                 android:text="@string/normal"
-                android:textColor="@color/colorPrimary"
+
                 android:textSize="16sp"
                 app:fontFamily="@font/roboto"
                 tools:ignore="MissingPrefix" />
@@ -195,7 +198,7 @@
             android:paddingTop="5dp"
             android:text="Male"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimary"
+
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/tv_cat"
             app:layout_constraintStart_toStartOf="parent"
@@ -288,8 +291,6 @@
             android:paddingTop="5dp"
             android:text="Limited"
             android:textAlignment="center"
-
-            android:textColor="@color/colorPrimary"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tv_male"
             app:layout_constraintTop_toBottomOf="@+id/tv_type" />
@@ -384,7 +385,6 @@
             android:paddingStart="6dp"
             android:paddingTop="5dp"
             android:text="Tennis"
-            android:textColor="@color/colorPrimary"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tv_limited"
             app:layout_constraintTop_toBottomOf="@+id/tv_tour_type" />
@@ -478,6 +478,8 @@
             android:textAlignment="center"
             android:textColor="@color/gray"
             android:textSize="14sp"
+            android:drawableEnd="@drawable/edit_pen"
+            android:drawableRight="@drawable/edit_pen"
             app:layout_constraintStart_toStartOf="@+id/tv_tennis"
             app:layout_constraintTop_toBottomOf="@+id/tv_overs" />
 
@@ -671,7 +673,6 @@
             android:paddingTop="5dp"
             android:text="DAY"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimary"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_night"
             app:layout_constraintStart_toEndOf="@+id/tv_night"
@@ -719,7 +720,6 @@
             android:paddingTop="5dp"
             android:text="Weekend"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimary"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_weekday"
             app:layout_constraintStart_toEndOf="@+id/tv_weekday"
@@ -785,6 +785,8 @@
             android:textAlignment="center"
             android:textColor="@color/gray"
             android:textSize="14sp"
+            android:drawableEnd="@drawable/edit_pen"
+            android:drawableRight="@drawable/edit_pen"
             app:layout_constraintStart_toStartOf="@+id/user_type"
             app:layout_constraintTop_toBottomOf="@+id/tv_entry_fee" />
 
@@ -967,7 +969,6 @@
             android:paddingTop="5dp"
             android:text="10"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimary"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/et_entry_fee"
             app:layout_constraintTop_toBottomOf="@+id/tv_max_teams" />
@@ -1034,9 +1035,10 @@
             android:paddingRight="12dp"
             android:paddingStart="12dp"
             android:paddingTop="5dp"
+            android:drawableEnd="@drawable/edit_pen"
+            android:drawableRight="@drawable/edit_pen"
             android:textAlignment="center"
             android:inputType="number"
-            android:textColorHint="@color/gray"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_twenty_teams"
             app:layout_constraintStart_toEndOf="@+id/tv_twenty_teams"
@@ -1099,7 +1101,6 @@
             android:paddingTop="5dp"
             android:text="12"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimary"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/tv_ten_teams"
             app:layout_constraintTop_toBottomOf="@+id/tv_players" />
@@ -1171,6 +1172,8 @@
             android:textAlignment="center"
             android:inputType="number"
             android:textSize="14sp"
+            android:drawableEnd="@drawable/edit_pen"
+            android:drawableRight="@drawable/edit_pen"
             app:layout_constraintBottom_toBottomOf="@+id/tv_twenty_players"
             app:layout_constraintStart_toEndOf="@+id/tv_twenty_players"
             app:layout_constraintTop_toTopOf="@+id/tv_twenty_players" />
@@ -1321,6 +1324,8 @@
             android:textColor="@color/gray"
             android:textSize="14sp"
             android:textAlignment="center"
+            android:drawableEnd="@drawable/edit_pen"
+            android:drawableRight="@drawable/edit_pen"
             app:layout_constraintBottom_toBottomOf="@+id/tv_winners"
             app:layout_constraintStart_toEndOf="@+id/tv_winners"
             app:layout_constraintTop_toTopOf="@+id/tv_winners" />
@@ -1366,9 +1371,12 @@
             android:textColor="@color/gray"
             android:textSize="14sp"
             android:textAlignment="center"
+            android:drawableEnd="@drawable/edit_pen"
+            android:drawableRight="@drawable/edit_pen"
             app:layout_constraintBottom_toBottomOf="@+id/tv_runners"
             app:layout_constraintStart_toEndOf="@+id/tv_runners"
-            app:layout_constraintTop_toTopOf="@+id/tv_runners" />
+            app:layout_constraintTop_toTopOf="@+id/tv_runners"
+            android:layout_marginLeft="8dp" />
 
         <View
             android:id="@+id/background_mom"
@@ -1429,6 +1437,8 @@
             android:paddingTop="5dp"
             android:textColor="@color/gray"
             android:textSize="14sp"
+            android:drawableEnd="@drawable/edit_pen"
+            android:drawableRight="@drawable/edit_pen"
             app:layout_constraintStart_toStartOf="@+id/tv_runners"
             app:layout_constraintTop_toBottomOf="@+id/tv_mom" />
 
@@ -1491,6 +1501,8 @@
             android:paddingTop="5dp"
             android:textColor="@color/gray"
             android:textSize="14sp"
+            android:drawableEnd="@drawable/edit_pen"
+            android:drawableRight="@drawable/edit_pen"
             app:layout_constraintStart_toStartOf="@+id/et_mom"
             app:layout_constraintTop_toBottomOf="@+id/tv_mos" />
 
@@ -1501,8 +1513,6 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
-
-
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/rounded_rect_border_only"
