@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -15,15 +16,19 @@ import android.widget.TextView;
 
 import com.cricscore.deepakshano.cricscore.R;
 import com.cricscore.deepakshano.cricscore.adapter.AllGroupListAdapter;
+import com.cricscore.deepakshano.cricscore.adapter.GroundListAdapter;
+import com.cricscore.deepakshano.cricscore.adapter.GroupMemberListAdapter;
 import com.cricscore.deepakshano.cricscore.helper.CustomMessageHelper;
 import com.cricscore.deepakshano.cricscore.helper.GlobalClass;
 import com.cricscore.deepakshano.cricscore.pojo.GetAllGroupsListPojoClass;
 import com.cricscore.deepakshano.cricscore.pojo.GroupDetailsPojo;
+import com.cricscore.deepakshano.cricscore.pojo.GroupMembersList;
 import com.cricscore.deepakshano.cricscore.retrofit.ClientServiceGenerator;
 import com.cricscore.deepakshano.cricscore.services.APIMethods;
 
 import java.net.SocketTimeoutException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -41,6 +46,10 @@ public class GroupDetailsActivity extends AppCompatActivity {
     private Context context;
     private ProgressDialog dialog;
     private String groupid = "";
+
+    private GroupMemberListAdapter adapter;
+    List<GroupMembersList> membersLists;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,17 +137,12 @@ public class GroupDetailsActivity extends AppCompatActivity {
                                     tv_group_details_team2_count.setText("2 members");
                                     tv_group_details_more_teams.setText("New");
                                     tv_group_details_join_request_count.setText("15");
-
-
-
-
-
-
-
-                                   /* recycler_group_details_member_list.setHasFixedSize(true);
-                                    recycler_group_details_member_list.setLayoutManager(new GridLayoutManager(context, 2));
-                                    recycler_group_details_member_list.setAdapter(allGroupListAdapter);
-                                    recycler_group_details_member_list.setVisibility(View.VISIBLE);*/
+                                    membersLists=response.body().getGroupDetails().getMembers();
+                                    adapter = new GroupMemberListAdapter(context,membersLists);
+                                    recycler_group_details_member_list.setHasFixedSize(true);
+                                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+                                    recycler_group_details_member_list.setLayoutManager(layoutManager);
+                                    recycler_group_details_member_list.setAdapter(adapter);
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
