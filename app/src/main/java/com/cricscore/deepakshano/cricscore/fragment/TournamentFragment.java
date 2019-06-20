@@ -277,7 +277,7 @@ public class TournamentFragment extends Fragment {
                     } else {
                         progress.setVisibility(View.GONE);
                         no_internet.setVisibility(View.VISIBLE);
-                        retry.setVisibility(View.VISIBLE);
+                       retry.setVisibility(View.VISIBLE);
                         no_internet.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.blink));
                         animationView.setVisibility(View.VISIBLE);
                         animationView.playAnimation();

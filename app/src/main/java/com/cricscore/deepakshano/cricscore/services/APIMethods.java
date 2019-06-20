@@ -29,7 +29,6 @@ public interface APIMethods {
     @POST("tournament/host")
     Call<GeneralPojoClass> hosttournament(@Body HosttournamentParametersModelClass hosttournamentParameters);
 
-
     @POST("tournament/list")
     Call<TournamentListPojoClass> gettournamentlist(@Body TournamentListModelClass tournamentListModelClass);
 
@@ -45,9 +44,7 @@ public interface APIMethods {
     @GET("group/userGroups")
     Call<GetAllGroupsListPojoClass> getGroupList(@HeaderMap Map<String, String> headers);
 
-
-    @Headers({"Content-Type:application/x-www-form-urlencoded"})
-    @GET("group/create")
+    @POST("group/create")
     Call<GeneralPojoClass> creategroup(@HeaderMap Map<String, String> headers,@Body CreateGroupModelClass createGroupModelClass);
 
     @GET("group/info/{groupid}")

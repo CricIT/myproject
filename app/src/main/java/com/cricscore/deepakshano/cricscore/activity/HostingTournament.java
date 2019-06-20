@@ -57,7 +57,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
     public static final String TAG = "myLog";
     ArrayList<String> list = new ArrayList();
     HosttournamentParametersModelClass hosttournamentParameters;
-    EditText et_tour_name, et_overs, et_entry_fee, et_max_teams, et_minplayer_count,
+    EditText et_tour_name, et_overs, et_entry_fee, et_minplayer_count,
             et_winners, et_runners, et_mom, et_mos, et_instructions;
     TextView tv_free, tv_Premium, tv_tennis, tv_leather, tv_limited, tv_unlimited, tv_age, tv_user_type, tv_ground_list, tv_start_date, tv_end_date;
     TextView tv_ten_teams, tv_fifteen_teams, tv_twenty_teams;
@@ -707,7 +707,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
 
     private void savedata() {
         try {
-            list.add("a07f3764-8bcc-4cf5-a2f9-320327fe4614");
+            list.add("f1ad8a9c-1651-4aac-9547-8536fa6dd2c0");
             hosttournamentParameters.setTournamentName(et_tour_name.getText().toString());
             hosttournamentParameters.setDate(tv_start_date.getText().toString());
             if (!TextUtils.isEmpty(tv_end_date.getText())) {
@@ -718,16 +718,16 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
             hosttournamentParameters.setOvers(Integer.parseInt(et_overs.getText().toString()));
             hosttournamentParameters.setMatchType(tounament_type);
             hosttournamentParameters.setMaxPlayers(25);
-            hosttournamentParameters.setMinPlayers(Integer.parseInt(et_minplayer_count.getText().toString()));
-            hosttournamentParameters.setMaxTeams(Integer.parseInt(et_max_teams.getText().toString()));
-            hosttournamentParameters.setWinnerPrize(et_winners.getText().toString());
-            hosttournamentParameters.setRunnerPrize(et_runners.getText().toString());
+            hosttournamentParameters.setMinPlayers(2);
             hosttournamentParameters.setTime(1);
-            hosttournamentParameters.setMos(et_mos.getText().toString());
-            hosttournamentParameters.setMom(et_mom.getText().toString());
             hosttournamentParameters.setGroundId(list);
             hosttournamentParameters.setMatchInstructions("");
             hosttournamentParameters.setHostId("Deepak");
+            hosttournamentParameters.setMaxTeams(15);
+            hosttournamentParameters.setMos("t-shirt");
+            hosttournamentParameters.setMom("t-shirt");
+            hosttournamentParameters.setWinnerPrize("10000");
+            hosttournamentParameters.setRunnerPrize("5000");
             HostTournament();
         } catch (Exception e) {
             e.getMessage();
@@ -750,11 +750,13 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                                 CustomMessageHelper showDialog = new CustomMessageHelper(context);
                                 showDialog.showCustomMessage((Activity) context, "Success!", "Tournament hosted successfully", false, true);
                             } else {
+                                progressDialog.dismiss();
                                 CustomMessageHelper showDialog = new CustomMessageHelper(context);
                                 showDialog.showCustomMessage((Activity) context, "Alert!!", getString(R.string.ERROR), false, false);
                             }
                         }
                     } catch (Exception e) {
+                        progressDialog.dismiss();
                         e.printStackTrace();
                         e.getMessage();
                     }
@@ -776,6 +778,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                             showDialog.showCustomMessage((Activity) context, "Alert!!", getString(R.string.NETWORK_ISSUE), false, false);
                         }
                     } catch (Exception e) {
+                        progressDialog.dismiss();
                         e.printStackTrace();
 
                     }
@@ -820,10 +823,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
             }
             if (TextUtils.isEmpty(et_entry_fee.getText())) {
                 et_entry_fee.setError("Please enter entry fees", customErrorDrawable);
-                flag = false;
-            }
-            if (TextUtils.isEmpty(et_max_teams.getText())) {
-                et_max_teams.setError("Please enter entry fees", customErrorDrawable);
                 flag = false;
             }
             if (TextUtils.isEmpty(et_minplayer_count.getText())) {

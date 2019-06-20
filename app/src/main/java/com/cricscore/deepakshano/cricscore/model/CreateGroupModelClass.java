@@ -29,6 +29,18 @@ public class CreateGroupModelClass {
     @Expose
     private String description;
 
+    public Integer getGrouptype() {
+        return grouptype;
+    }
+
+    public void setGrouptype(Integer grouptype) {
+        this.grouptype = grouptype;
+    }
+
+    @SerializedName("grouptype")
+    @Expose
+    private Integer grouptype;
+
     public Double getLat() {
         return lat;
     }

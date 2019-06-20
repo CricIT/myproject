@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,12 +14,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.cricscore.deepakshano.cricscore.R;
-import com.cricscore.deepakshano.cricscore.adapter.AllGroupListAdapter;
-import com.cricscore.deepakshano.cricscore.adapter.GroundListAdapter;
 import com.cricscore.deepakshano.cricscore.adapter.GroupMemberListAdapter;
 import com.cricscore.deepakshano.cricscore.helper.CustomMessageHelper;
 import com.cricscore.deepakshano.cricscore.helper.GlobalClass;
-import com.cricscore.deepakshano.cricscore.pojo.GetAllGroupsListPojoClass;
 import com.cricscore.deepakshano.cricscore.pojo.GroupDetailsPojo;
 import com.cricscore.deepakshano.cricscore.pojo.GroupMembersList;
 import com.cricscore.deepakshano.cricscore.retrofit.ClientServiceGenerator;
@@ -115,8 +111,8 @@ public class GroupDetailsActivity extends AppCompatActivity {
             dialog.show();
             APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
             Map<String, String> map = new HashMap<>();
-            map.put("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJDb2RlV29yayIsInN1YiI6IjVjZTUyMDg3Nzk5ZjZmMDAxNzg5OWJmNSIsImlhdCI6MTU1OTczMDU0NDgzNX0.oDTK_vWcmW4cVIMneq2wnZwjbg4glsh9MChXoh2N-3c");
-            Call<GroupDetailsPojo> call = api.getgroupdetails("13548df3-cbf8-4729-8190-a5c9296a58c8", map);
+            map.put("Authorization","Bearer " + GlobalClass.usertoken);
+            Call<GroupDetailsPojo> call = api.getgroupdetails(groupid, map);
             call.enqueue(new Callback<GroupDetailsPojo>() {
                 @Override
                 public void onResponse(Call<GroupDetailsPojo> call, Response<GroupDetailsPojo> response) {

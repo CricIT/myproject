@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,12 +14,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cricscore.deepakshano.cricscore.R;
-import com.cricscore.deepakshano.cricscore.adapter.AllGroupListAdapter;
 import com.cricscore.deepakshano.cricscore.helper.CustomMessageHelper;
 import com.cricscore.deepakshano.cricscore.helper.GlobalClass;
 import com.cricscore.deepakshano.cricscore.model.CreateGroupModelClass;
 import com.cricscore.deepakshano.cricscore.pojo.GeneralPojoClass;
-import com.cricscore.deepakshano.cricscore.pojo.GetAllGroupsListPojoClass;
 import com.cricscore.deepakshano.cricscore.retrofit.ClientServiceGenerator;
 import com.cricscore.deepakshano.cricscore.services.APIMethods;
 
@@ -38,6 +35,7 @@ import retrofit2.Response;
 
 public class CreateGroupActivity  extends AppCompatActivity {
 
+    //google api sed lat long and area name in the location section
 
     ImageView iv_group_banner;
     Context context;
@@ -79,9 +77,13 @@ public class CreateGroupActivity  extends AppCompatActivity {
             btn_publish_group.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(checkdeatils()) {
-                        getallGroupsList();
-                    }
+                    createGroupModelClass.setGroupName(group_name.getText().toString());
+                    createGroupModelClass.setDescription("Respect All no Quarrels");
+                    createGroupModelClass.setAreaName("Btm layout");
+                    createGroupModelClass.setLat(12.9166);
+                    createGroupModelClass.setLng(77.6101);
+                    createGroupModelClass.setGrouptype(1);
+                    Creategroup();
                 }
             });
         }catch (Exception e){
@@ -98,10 +100,9 @@ public class CreateGroupActivity  extends AppCompatActivity {
         return true;
     }
 
-    private void getallGroupsList() {
+    private void Creategroup() {
         try {
             Map<String, String> map = new HashMap<>();
-
             dialog.setMessage("please wait.");
             dialog.setCancelable(false);
             dialog.show();
@@ -120,6 +121,7 @@ public class CreateGroupActivity  extends AppCompatActivity {
                                     CustomMessageHelper showDialog = new CustomMessageHelper(context);
                                     showDialog.showCustomMessage((Activity) context, "Alert!!", "Group Created Sucessfully", false, false);
                                 }catch (Exception e){
+                                    dismissDialog();
                                     e.printStackTrace();
                                 }
                             } else {

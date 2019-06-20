@@ -1,15 +1,16 @@
-<android.support.v7.widget.CardView
-    android:id="@+id/lyt_card_group_content"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lyt_card_group_content"
     style="@style/CardView.Light"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
 
     <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:background="@drawable/group_content_background">
 
 
@@ -17,8 +18,8 @@
             android:id="@+id/groupImageView"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/group_icon"
             android:layout_marginTop="15dp"
+            android:src="@drawable/group_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -43,8 +44,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:textSize="14sp"
             android:textColor="@color/lightgray"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/group_name"
             app:layout_constraintHorizontal_bias="0.454"
             app:layout_constraintStart_toStartOf="@+id/group_name"
@@ -65,44 +66,43 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/user_img1"
-                android:src="@drawable/usr_1"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginBottom="15dp"/>
+                android:layout_marginBottom="15dp"
+                android:src="@drawable/usr_1" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/user_img2"
-                android:src="@drawable/usr_2"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginBottom="15dp"/>
+                android:layout_marginBottom="15dp"
+                android:src="@drawable/usr_2" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/usre_img3"
-                android:src="@drawable/usr_3"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginBottom="15dp"/>
+                android:layout_marginBottom="15dp"
+                android:src="@drawable/usr_3" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/usre_img4"
-                android:src="@drawable/usr_4"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginBottom="15dp"/>
+                android:layout_marginBottom="15dp"
+                android:src="@drawable/usr_4" />
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/my_groups_more_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_more_vertdp"
-            android:layout_marginRight="8dp" />
-
+            app:srcCompat="@drawable/ic_more_vertdp" />
 
 
     </android.support.constraint.ConstraintLayout>

@@ -8,23 +8,20 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.cricscore.deepakshano.cricscore.R;
 import com.cricscore.deepakshano.cricscore.activity.CreateGroupActivity;
-import com.cricscore.deepakshano.cricscore.adapter.AllGroupListAdapter;
+import com.cricscore.deepakshano.cricscore.adapter.MyGroupListAdapter;
 import com.cricscore.deepakshano.cricscore.helper.CustomMessageHelper;
 import com.cricscore.deepakshano.cricscore.helper.GlobalClass;
 import com.cricscore.deepakshano.cricscore.pojo.GetAllGroupsListPojoClass;
 import com.cricscore.deepakshano.cricscore.pojo.GroupListData;
-import com.cricscore.deepakshano.cricscore.pojo.VerifyOtpPojo;
 import com.cricscore.deepakshano.cricscore.retrofit.ClientServiceGenerator;
 import com.cricscore.deepakshano.cricscore.services.APIMethods;
 
@@ -38,8 +35,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.cricscore.deepakshano.cricscore.helper.GlobalClass.hideView;
-
 /**
  * Created by Deepak Shano on 3/4/2019.
  */
@@ -50,7 +45,7 @@ public class GroupsFragment extends Fragment {
     private Context context;
     private ProgressDialog dialog;
     RecyclerView group_lst_recycler_view;
-    AllGroupListAdapter allGroupListAdapter;
+    MyGroupListAdapter myGroupListAdapter;
     Button create_group_btn;
     @Nullable
     @Override
@@ -101,7 +96,7 @@ public class GroupsFragment extends Fragment {
                                 try {
                                     getAllGroupsListPojoClass = response.body().getData();
                                     dismissDialog();
-                                    allGroupListAdapter = new AllGroupListAdapter(getActivity(), getAllGroupsListPojoClass, new AllGroupListAdapter.GrouplistAdapterAdapterListener() {
+                                    myGroupListAdapter = new MyGroupListAdapter(getActivity(), getAllGroupsListPojoClass, new MyGroupListAdapter.GrouplistAdapterAdapterListener() {
                                         @Override
                                         public void onItemClickListener(int position) {
 
@@ -109,7 +104,7 @@ public class GroupsFragment extends Fragment {
                                     });
                                     group_lst_recycler_view.setHasFixedSize(true);
                                     group_lst_recycler_view.setLayoutManager(new GridLayoutManager(context, 2));
-                                    group_lst_recycler_view.setAdapter(allGroupListAdapter);
+                                    group_lst_recycler_view.setAdapter(myGroupListAdapter);
                                     group_lst_recycler_view.setVisibility(View.VISIBLE);
                                 }catch (Exception e){
                                     e.printStackTrace();
