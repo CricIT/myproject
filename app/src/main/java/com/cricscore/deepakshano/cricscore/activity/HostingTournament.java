@@ -70,7 +70,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
     Boolean match_type;
     TextView back_btn, tv_title;
     Group lyt_match_type, lyt_overs;
-    int gnd_flow;
     Intent intent;
     String[] typeGroup = {"School", "College", "Corporate"};
     String[] ageGroup = {"Under 12", "Under 14", "Under 16", "Under 19", "Under 23", "23+"};
@@ -83,7 +82,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
     private View background_gender;
     ConstraintLayout constraintLayout;
     ConstraintSet constraintSet;
-    String agegroup = "",usertype;
+    int maxteams = 0, maxplayers = 0;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -138,7 +137,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
             tv_twelve_players = findViewById(R.id.tv_twelve_players);
             tv_fifteen_players = findViewById(R.id.tv_fifteen_players);
             tv_twenty_players = findViewById(R.id.tv_twenty_players);
-            et_custom_players= findViewById(R.id.et_custom_players);
+            et_custom_players = findViewById(R.id.et_custom_players);
 
             tv_custom_teams = findViewById(R.id.tv_custom_teams);
             constraintLayout = findViewById(R.id.main_constraint);
@@ -515,8 +514,8 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
-                        agegroup = "10";
-                        selectedstatus(tv_ten_teams,tv_fifteen_teams,tv_twenty_teams,tv_custom_teams);
+                        maxteams = 10;
+                        selectedstatus(tv_ten_teams, tv_fifteen_teams, tv_twenty_teams, tv_custom_teams);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -526,8 +525,8 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
-                        agegroup = "15";
-                        selectedstatus(tv_fifteen_teams,tv_ten_teams,tv_twenty_teams,tv_custom_teams);
+                        maxteams = 15;
+                        selectedstatus(tv_fifteen_teams, tv_ten_teams, tv_twenty_teams, tv_custom_teams);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -537,8 +536,8 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
-                        agegroup = "20";
-                        selectedstatus(tv_twenty_teams,tv_ten_teams,tv_fifteen_teams,tv_custom_teams);
+                        maxteams = 20;
+                        selectedstatus(tv_twenty_teams, tv_ten_teams, tv_fifteen_teams, tv_custom_teams);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -551,10 +550,9 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 public void onClick(View v) {
                     try {
                         String custom_age_group = tv_custom_teams.getText().toString();
-                        if (!custom_age_group.equals(agegroup)) {
-                            agegroup = custom_age_group;
-                            selectedstatuscustom(tv_custom_teams,tv_ten_teams,tv_fifteen_teams,tv_twenty_teams);
-
+                        if (!custom_age_group.equals(maxteams)) {
+                            maxteams = Integer.parseInt(custom_age_group);
+                            selectedstatuscustom(tv_custom_teams, tv_ten_teams, tv_fifteen_teams, tv_twenty_teams);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -566,8 +564,8 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
-                        usertype = "12";
-                        selectedstatus(tv_twelve_players,tv_fifteen_players,tv_twenty_players,et_custom_players);
+                        maxplayers = 12;
+                        selectedstatus(tv_twelve_players, tv_fifteen_players, tv_twenty_players, et_custom_players);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -579,8 +577,8 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
-                        usertype = "15";
-                        selectedstatus(tv_fifteen_players,tv_twelve_players,tv_twenty_players,et_custom_players);
+                        maxplayers = 15;
+                        selectedstatus(tv_fifteen_players, tv_twelve_players, tv_twenty_players, et_custom_players);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -590,8 +588,8 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
-                        usertype = "20";
-                        selectedstatus(tv_twenty_players,tv_fifteen_players,tv_twelve_players,et_custom_players);
+                        maxplayers = 20;
+                        selectedstatus(tv_twenty_players, tv_fifteen_players, tv_twelve_players, et_custom_players);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -601,10 +599,10 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
-                        usertype = "20";
+                        maxplayers = 20;
                         String custom_players_group = et_custom_players.getText().toString();
-                        if (!custom_players_group.equals(usertype)){
-                            selectedstatuscustom(et_custom_players,tv_twelve_players,tv_fifteen_players,tv_twenty_players);
+                        if (!custom_players_group.equals(maxplayers)) {
+                            selectedstatuscustom(et_custom_players, tv_twelve_players, tv_fifteen_players, tv_twenty_players);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -617,7 +615,8 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
         }
 
     }
-    public void selectedstatuscustom(EditText et_Custom, TextView Tv_one,TextView tv_two,TextView tv_three){
+
+    public void selectedstatuscustom(EditText et_Custom, TextView Tv_one, TextView tv_two, TextView tv_three) {
         et_Custom.setBackground(getResources().getDrawable(
                 R.drawable.rounded_rect_lightgreen_low));
         et_Custom.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
@@ -632,22 +631,22 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
         tv_three.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 
     }
-    public void selectedstatus(TextView tv_one, TextView Tv_two,TextView tv_three,EditText et_one){
+
+    public void selectedstatus(TextView tv_one, TextView Tv_two, TextView tv_three, EditText et_one) {
         tv_one.setBackground(getResources().getDrawable(
                 R.drawable.rounded_rect_lightgreen_low));
-       tv_one.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
+        tv_one.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
         Tv_two.setBackground(getResources().getDrawable(
                 R.drawable.rect_round));
         Tv_two.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         tv_three.setBackground(getResources().getDrawable(
                 R.drawable.rect_round));
-       tv_three.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        tv_three.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         et_one.setBackground(getResources().getDrawable(
                 R.drawable.rect_round));
         et_one.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         et_one.setText("");
     }
-
 
 
     private void tourTypePopUp() {
@@ -716,18 +715,19 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
             hosttournamentParameters.setEntryFee(Integer.parseInt(et_entry_fee.getText().toString()));
             hosttournamentParameters.setLimited(match_type);
             hosttournamentParameters.setOvers(Integer.parseInt(et_overs.getText().toString()));
+            hosttournamentParameters.setWinnerPrize(et_winners.getText().toString());
+            hosttournamentParameters.setRunnerPrize(et_runners.getText().toString());
             hosttournamentParameters.setMatchType(tounament_type);
-            hosttournamentParameters.setMaxPlayers(25);
+            hosttournamentParameters.setMaxPlayers(maxplayers);
+            hosttournamentParameters.setGroundId(list);
+            hosttournamentParameters.setMatchInstructions(et_instructions.getText().toString());
+            hosttournamentParameters.setHostId(GlobalClass.usertoken);
+            hosttournamentParameters.setMaxTeams(maxteams);
+            hosttournamentParameters.setMos(et_mos.getText().toString());
+            hosttournamentParameters.setMom("t-shirt");
             hosttournamentParameters.setMinPlayers(2);
             hosttournamentParameters.setTime(1);
-            hosttournamentParameters.setGroundId(list);
-            hosttournamentParameters.setMatchInstructions("");
-            hosttournamentParameters.setHostId("Deepak");
-            hosttournamentParameters.setMaxTeams(15);
-            hosttournamentParameters.setMos("t-shirt");
-            hosttournamentParameters.setMom("t-shirt");
-            hosttournamentParameters.setWinnerPrize("10000");
-            hosttournamentParameters.setRunnerPrize("5000");
+
             HostTournament();
         } catch (Exception e) {
             e.getMessage();
