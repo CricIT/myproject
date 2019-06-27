@@ -439,7 +439,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                     } else if (tv_user_type.getText().toString().equalsIgnoreCase("corporate")) {
                         ageGroupPopUp(GlobalClass.corparate);
                     }
-
                 }
             });
 
