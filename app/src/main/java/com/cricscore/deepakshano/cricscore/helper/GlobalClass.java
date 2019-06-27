@@ -22,6 +22,14 @@ public class GlobalClass {
     public static DateFormat outputdateformat = new SimpleDateFormat("dd-MMM-yyyy");
     public static String Gndname="";
     public static String usertoken="";
+    public static String[] ageGroup = {"Under 12", "Under 14", "Under 16", "Under 19", "Under 23", "23+"};
+    public static String[] school = {"Under 12", "Under 14", "Under 16"};
+    public static String[] collage = {"Under 19", "Under 23"};
+    public static String[] corparate = { "Under 23", "23+"};
+    public static String[] generalgroup = {"School", "College", "Corporate"};
+    public static  String[] schoolgroup = {"School"};
+    public static String[] collegegroup = {"College"};
+    public static String[] intermediategroup = {"College","Corporate"};
 
     public static void showView(View... views) {
         try{
