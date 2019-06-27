@@ -71,8 +71,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
     TextView back_btn, tv_title;
     Group lyt_match_type, lyt_overs;
     Intent intent;
-    String[] typeGroup = {"School", "College", "Corporate"};
-    String[] ageGroup = {"Under 12", "Under 14", "Under 16", "Under 19", "Under 23", "23+"};
+
     int ed_date, ed_year, ed_month;
     private TextView tv_night, tv_day, tv_weekend, tv_weekday;
     private TextView tv_male, tv_female;
@@ -431,7 +430,16 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
             tv_age.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ageGroupPopUp();
+                    if (tv_user_type.getText().toString().equalsIgnoreCase("select")) {
+                        ageGroupPopUp(GlobalClass.ageGroup);
+                    } else if (tv_user_type.getText().toString().equalsIgnoreCase("School")) {
+                        ageGroupPopUp(GlobalClass.school);
+                    } else if (tv_user_type.getText().toString().equalsIgnoreCase("College")) {
+                        ageGroupPopUp(GlobalClass.collage);
+                    } else if (tv_user_type.getText().toString().equalsIgnoreCase("corporate")) {
+                        ageGroupPopUp(GlobalClass.corparate);
+                    }
+
                 }
             });
 
@@ -439,7 +447,17 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
-                        tourTypePopUp();
+                        if (tv_age.getText().toString().equalsIgnoreCase("select")) {
+                            tourTypePopUp(GlobalClass.generalgroup);
+                        } else if (tv_age.getText().toString().contains("12") || tv_age.getText().toString().contains("14") ||
+                                tv_age.getText().toString().contains("16")) {
+                            tourTypePopUp(GlobalClass.schoolgroup);
+                        } else if (tv_age.getText().toString().contains("19")) {
+                            tourTypePopUp(GlobalClass.collegegroup);
+                        } else if (tv_age.getText().toString().contains("23") || tv_age.getText().toString().contains("23+")) {
+                            tourTypePopUp(GlobalClass.intermediategroup);
+                        }
+
                     } catch (Exception e) {
                         e.getMessage();
                         e.printStackTrace();
@@ -649,41 +667,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
     }
 
 
-    private void tourTypePopUp() {
-        try {
-            AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
-            //alt_bld.setIcon(R.drawable.icon);
-            alt_bld.setTitle("Select one option");
-
-            alt_bld.setSingleChoiceItems(typeGroup, -1, new DialogInterface
-                    .OnClickListener() {
-                public void onClick(DialogInterface dialog, int item) {
-                    try {
-                        if (typeGroup[item].equals(typeGroup[0])) {
-                            ageGroup = new String[]{"Under 12", "Under 14", "Under 16"};
-                        } else {
-                            ageGroup = new String[]{"Under 12", "Under 14", "Under 16", "Under 19", "Under 23", "23+"};
-                        }
-                        tv_user_type.setText(typeGroup[item]);
-                        dialog.dismiss();// dismiss the alertbox after chose option
-                        tv_user_type.setBackground(getResources().getDrawable(
-                                R.drawable.rounded_rect_lightgreen_low));
-                        tv_user_type.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            });
-            AlertDialog alert = alt_bld.create();
-            alert.show();
-        } catch (Exception e) {
-            e.getMessage();
-            e.printStackTrace();
-        }
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -849,7 +832,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
         return flag;
     }
 
-    public void ageGroupPopUp() {
+    public void ageGroupPopUp(final String[] ageGroup) {
         try {
             AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
             //alt_bld.setIcon(R.drawable.icon);
@@ -859,20 +842,11 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                     .OnClickListener() {
                 public void onClick(DialogInterface dialog, int item) {
                     try {
-                        if (ageGroup[item].equals(ageGroup[4])) {
-                            typeGroup = new String[]{"College", "Corporate"};
-                        } else if (ageGroup[item].equals(ageGroup[5])) {
-                            typeGroup = new String[]{"College", "Corporate"};
-                        } else {
-                            typeGroup = new String[]{"School", "College"};
-                        }
-
                         tv_age.setText(ageGroup[item]);
                         dialog.dismiss();// dismiss the alertbox after chose option
                         tv_age.setBackground(getResources().getDrawable(
                                 R.drawable.rounded_rect_lightgreen_low));
                         tv_age.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -887,6 +861,35 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
 
     }
 
+    private void tourTypePopUp(final String[] typeGroup) {
+        try {
+            AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
+            //alt_bld.setIcon(R.drawable.icon);
+            alt_bld.setTitle("Select one option");
+
+            alt_bld.setSingleChoiceItems(typeGroup, -1, new DialogInterface
+                    .OnClickListener() {
+                public void onClick(DialogInterface dialog, int item) {
+                    try {
+                        tv_user_type.setText(typeGroup[item]);
+                        dialog.dismiss();// dismiss the alertbox after chose option
+                        tv_user_type.setBackground(getResources().getDrawable(
+                                R.drawable.rounded_rect_lightgreen_low));
+                        tv_user_type.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+            AlertDialog alert = alt_bld.create();
+            alert.show();
+        } catch (Exception e) {
+            e.getMessage();
+            e.printStackTrace();
+        }
+    }
 
 /*    @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
