@@ -65,7 +65,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
     ImageView btn_add_banner;
     Context context;
     int category=1, tounament_type=1;
-    Boolean match_type;
+    Boolean match_type=true;
     boolean enableTennis=true;
     TextView back_btn, tv_title;
     Group lyt_match_type, lyt_overs;
@@ -148,18 +148,10 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
             et_custom_players = findViewById(R.id.et_custom_players);
             tv_custom_teams = findViewById(R.id.tv_custom_teams);
             constraintLayout = findViewById(R.id.main_constraint);
-            constraintSet = new ConstraintSet();
-            setalldefaultvalues();
-            constraintSet.clone(constraintLayout);
-
-            constraintSet.connect(background_gender.getId(), ConstraintSet.BOTTOM, constraintLayout.getId(), ConstraintSet.TOP, 0);
-            constraintSet.constrainDefaultHeight(background_gender.getId(), 200);
-            constraintSet.applyTo(constraintLayout);
-
             hosttournamentParameters = new HosttournamentParametersModelClass();
 
             tv_title.setText("Create Tournament");
-
+            setalldefaultvalues();
             back_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -292,17 +284,12 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                         if (!match_type) {
                             lyt_overs.setVisibility(View.GONE);
                         }
-
-                        tv_leather.setBackground(getResources().getDrawable(
-                                R.drawable.rounded_rect_lightgreen_low));
-                        tv_leather.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-                        tv_tennis.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_tennis.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                         tounament_type = 1;
                         tv_leather.setError(null);
                         tv_tennis.setError(null);
+/*
                         lyt_match_type.setVisibility(View.VISIBLE);
+*/
                     } catch (Exception e) {
                         e.getMessage();
                         e.printStackTrace();
@@ -313,38 +300,18 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
-                        selectview(tv_tennis,tv_leather);
-                        tounament_type = 2;
-                        tv_leather.setError(null);
-                        tv_tennis.setError(null);
-                        match_type = true;
-                        lyt_match_type.setVisibility(View.GONE);
-                        lyt_overs.setVisibility(View.VISIBLE);
+
 
                         if(!enableTennis){
                             Toast.makeText(context, "Switch to limited in match type first! ", Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            tv_tennis.setBackground(getResources().getDrawable(
-                                    R.drawable.rounded_rect_lightgreen_low));
-                            tv_tennis.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-                            tv_leather.setBackground(getResources().getDrawable(
-                                    R.drawable.rect_round));
-                            tv_leather.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                            selectview(tv_tennis,tv_leather);
                             tounament_type = 2;
                             tv_leather.setError(null);
                             tv_tennis.setError(null);
                             match_type = true;
                         }
-
-                        /*constraintSet = new ConstraintSet();
-                        constraintSet.clone(constraintLayout);
-
-                        constraintSet.connect(bg_gender.getId(), ConstraintSet.BOTTOM, head_tour_type_tv.getId(), ConstraintSet.TOP, 16);
-                        constraintSet.applyTo(constraintLayout);*/
-
-
-
                     } catch (Exception e) {
                         e.getMessage();
                         e.printStackTrace();
@@ -360,20 +327,11 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                         enableTennis=true;
                         constraintSet = new ConstraintSet();
                         constraintSet.clone(constraintLayout);
-
                         constraintSet.connect(bg_tour_type.getId(), ConstraintSet.BOTTOM, head_over_tv.getId(), ConstraintSet.TOP, 16);
                         constraintSet.applyTo(constraintLayout);
                         tv_tennis.setVisibility(View.VISIBLE);
-                        tv_limited.setBackground(getResources().getDrawable(
-                                R.drawable.rounded_rect_lightgreen_low));
-                        tv_limited.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-                        tv_unlimited.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_unlimited.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                         tv_tennis.setEnabled(true);
                         lyt_overs.setVisibility(View.VISIBLE);
-
-
                         match_type = true;
 
                     } catch (Exception e) {
@@ -398,16 +356,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                         selectview(tv_leather, tv_tennis);
 
                         lyt_overs.setVisibility(View.GONE);
-
-
-                        tv_unlimited.setBackground(getResources().getDrawable(
-                                R.drawable.rounded_rect_lightgreen_low));
-                        tv_unlimited.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-                        tv_limited.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_limited.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                         match_type = false;
-                        lyt_overs.setVisibility(View.GONE);
                     } catch (Exception e) {
                         e.getMessage();
                         e.printStackTrace();
@@ -837,10 +786,14 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
     }
 
     private void setalldefaultvalues() {
-        selectview(tv_tennis,tv_leather);
-        selectview(tv_free,tv_Premium);
-        selectview(tv_limited,tv_unlimited);
-        match_type = true;
+        try {
+            selectview(tv_tennis, tv_leather);
+            selectview(tv_free, tv_Premium);
+            selectview(tv_limited, tv_unlimited);
+            match_type = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 

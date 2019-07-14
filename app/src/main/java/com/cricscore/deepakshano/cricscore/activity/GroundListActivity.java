@@ -58,10 +58,10 @@ public class GroundListActivity extends AppCompatActivity {
         try {
             gnd_lst_recycler_view = findViewById(R.id.gnd_lst_recycler_view);
             parent = findViewById(R.id.parent_ground);
-
             dialog = new ProgressDialog(GroundListActivity.this);
             dialog.show();
             dialog.setMessage("Please Wait..");
+            dialog.setCancelable(false);
             context = this;
             getGroundList();
             hostingGroundList = new ArrayList<>();
