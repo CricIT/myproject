@@ -227,11 +227,12 @@ public class TournamentFragment extends Fragment {
         Log.d("myLog", "loadFirstPage: ");
         callGetTourList().enqueue(new Callback<TournamentListPojoClass>() {
             @Override
-            public void onResponse(Call<TournamentListPojoClass> call, Response<TournamentListPojoClass> response) {
+            public void onResponse(@NonNull Call<TournamentListPojoClass> call, @NonNull Response<TournamentListPojoClass> response) {
                 try {
                     if (response.isSuccessful()) {
-                        if (response.body().getRequestStatus() == 1) {
+                        if (response.body() != null && response.body().getRequestStatus() == 1) {
                             try {
+
 
                                 tournamentListAdapter.clear();
                                 List<tournamentlist> results = fetchResults(response);
@@ -281,6 +282,7 @@ public class TournamentFragment extends Fragment {
                         no_internet.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.blink));
                         animationView.setVisibility(View.VISIBLE);
                         animationView.playAnimation();
+                        Log.d(TAG, "onFailure: "+t.getMessage());
 
                     }
                 } catch (Exception e) {

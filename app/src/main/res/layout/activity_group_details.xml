@@ -85,7 +85,7 @@
         <TextView
             android:id="@+id/textView7"
             android:layout_width="50dp"
-            android:layout_height="10dp"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_light"
             android:text="Members"
             android:textAlignment="center"
@@ -137,7 +137,7 @@
         <TextView
             android:id="@+id/textView9"
             android:layout_width="50dp"
-            android:layout_height="10dp"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_light"
             android:text="Unavailable"
             android:textAlignment="center"
@@ -306,7 +306,7 @@
             app:layout_constraintStart_toStartOf="@+id/teams"
             app:layout_constraintTop_toBottomOf="@+id/team_one" />
 
-        <Button
+        <TextView
             android:id="@+id/btn_group_details_add_memebers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -345,10 +345,10 @@
             android:layout_marginLeft="8dp" />
 
 
-        <Button
+        <TextView
             android:id="@+id/btn_group_details_join_requests"
-            android:layout_width="156dp"
-            android:layout_height="46dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="8dp"
             android:background="@drawable/dotted_blue_rect"

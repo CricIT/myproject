@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -49,7 +50,7 @@ public class GroupsFragment extends Fragment {
     Button create_group_btn;
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.group_fragment, null);
         try {
            context = getActivity();
@@ -89,30 +90,32 @@ public class GroupsFragment extends Fragment {
             Call<GetAllGroupsListPojoClass> call = api.getGroupList(map);
             call.enqueue(new Callback<GetAllGroupsListPojoClass>() {
                 @Override
-                public void onResponse(Call<GetAllGroupsListPojoClass> call, Response<GetAllGroupsListPojoClass> response) {
+                public void onResponse(@NonNull Call<GetAllGroupsListPojoClass> call, @NonNull Response<GetAllGroupsListPojoClass> response) {
                     try {
                         if (response.isSuccessful()) {
-                            if (response.body().getRequestStatus() == 1) {
-                                try {
-                                    getAllGroupsListPojoClass = response.body().getData();
-                                    dismissDialog();
-                                    myGroupListAdapter = new MyGroupListAdapter(getActivity(), getAllGroupsListPojoClass, new MyGroupListAdapter.GrouplistAdapterAdapterListener() {
-                                        @Override
-                                        public void onItemClickListener(int position) {
+                            if (response.body() != null) {
+                                if (response.body().getRequestStatus() == 1) {
+                                    try {
+                                        getAllGroupsListPojoClass = response.body().getData();
+                                        dismissDialog();
+                                        myGroupListAdapter = new MyGroupListAdapter(getActivity(), getAllGroupsListPojoClass, new MyGroupListAdapter.GrouplistAdapterAdapterListener() {
+                                            @Override
+                                            public void onItemClickListener(int position) {
 
-                                        }
-                                    });
-                                    group_lst_recycler_view.setHasFixedSize(true);
-                                    group_lst_recycler_view.setLayoutManager(new GridLayoutManager(context, 2));
-                                    group_lst_recycler_view.setAdapter(myGroupListAdapter);
-                                    group_lst_recycler_view.setVisibility(View.VISIBLE);
-                                }catch (Exception e){
-                                    e.printStackTrace();
+                                            }
+                                        });
+                                        group_lst_recycler_view.setHasFixedSize(true);
+                                        group_lst_recycler_view.setLayoutManager(new GridLayoutManager(context, 2));
+                                        group_lst_recycler_view.setAdapter(myGroupListAdapter);
+                                        group_lst_recycler_view.setVisibility(View.VISIBLE);
+                                    }catch (Exception e){
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    dismissDialog();
+                                    CustomMessageHelper showDialog = new CustomMessageHelper(context);
+                                    showDialog.showCustomMessage((Activity) context, "Alert!!", getString(R.string.ERROR), false, false);
                                 }
-                            } else {
-                                dismissDialog();
-                                CustomMessageHelper showDialog = new CustomMessageHelper(context);
-                                showDialog.showCustomMessage((Activity) context, "Alert!!", getString(R.string.ERROR), false, false);
                             }
                         }else{
                             dismissDialog();
@@ -131,10 +134,7 @@ public class GroupsFragment extends Fragment {
                         Log.d("INSIDE FAILURE", "****");
                         if (t instanceof SocketTimeoutException) {
                             dismissDialog();
-                           /* hideView(progressBar);
-                            phoneNumber.setEnabled(true);
-                            ccp.setClickable(true);
-                            loginButton.setEnabled(true);*/
+
                             CustomMessageHelper showDialog = new CustomMessageHelper(context);
                             showDialog.showCustomMessage((Activity) context, "Alert!!", getString(R.string.SOCKET_ISSUE), false, false);
                         } else {
@@ -161,8 +161,6 @@ public class GroupsFragment extends Fragment {
     public void dismissDialog() {
         if (dialog.isShowing()) {
             dialog.dismiss();
-        } else {
-            return;
         }
     }
 
