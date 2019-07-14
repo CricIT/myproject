@@ -15,7 +15,9 @@ import android.support.constraint.ConstraintSet;
 import android.support.constraint.Group;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -62,17 +64,14 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
     Button btn_save, btn_host;
     ImageView btn_add_banner;
     Context context;
-    int category, tounament_type;
-    Boolean match_type = true, tour_type;
+    int category=1, tounament_type=1;
+    Boolean match_type;
     boolean enableTennis=true;
     TextView back_btn, tv_title;
     Group lyt_match_type, lyt_overs;
     Intent intent;
 
     int ed_date, ed_year, ed_month;
-    ConstraintLayout constraintLayout;
-    ConstraintSet constraintSet;
-    int maxteams = 0, maxplayers = 0;
     private TextView tv_night, tv_day, tv_weekend, tv_weekday;
     private TextView tv_male, tv_female;
     private ProgressDialog progressDialog;
@@ -80,6 +79,11 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
     private int PICK_IMAGE_REQUEST = 1;
     private View background_gender, bg_tour_type, bg_gender;
     private TextView head_date_tv, head_tour_type_tv, head_over_tv;
+
+    ConstraintLayout constraintLayout;
+    ConstraintSet constraintSet;
+    int maxteams = 10, maxplayers = 12,overs=0,entry_fee=0;
+    String runners="",winners="",mom="",mos="";
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -142,16 +146,15 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
             tv_fifteen_players = findViewById(R.id.tv_fifteen_players);
             tv_twenty_players = findViewById(R.id.tv_twenty_players);
             et_custom_players = findViewById(R.id.et_custom_players);
-
             tv_custom_teams = findViewById(R.id.tv_custom_teams);
             constraintLayout = findViewById(R.id.main_constraint);
-
-            /*constraintSet = new ConstraintSet();
+            constraintSet = new ConstraintSet();
+            setalldefaultvalues();
             constraintSet.clone(constraintLayout);
 
             constraintSet.connect(background_gender.getId(), ConstraintSet.BOTTOM, constraintLayout.getId(), ConstraintSet.TOP, 0);
             constraintSet.constrainDefaultHeight(background_gender.getId(), 200);
-            constraintSet.applyTo(constraintLayout);*/
+            constraintSet.applyTo(constraintLayout);
 
             hosttournamentParameters = new HosttournamentParametersModelClass();
 
@@ -167,12 +170,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
-                        tv_free.setBackground(getResources().getDrawable(
-                                R.drawable.rounded_rect_lightgreen_low));
-                        tv_free.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-                        tv_Premium.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_Premium.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        selectview(tv_free,tv_Premium);
                         GlobalClass.setMargins(tv_free, 4, 2, 0, 4);
                         category = 1;
                         tv_Premium.setError(null);
@@ -187,12 +185,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
-                        tv_Premium.setBackground(getResources().getDrawable(
-                                R.drawable.rounded_rect_lightgreen_low));
-                        tv_Premium.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-                        tv_free.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_free.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        selectview(tv_Premium,tv_free);
                         category = 2;
                         tv_Premium.setError(null);
                         tv_free.setError(null);
@@ -207,12 +200,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
-                        tv_male.setBackground(getResources().getDrawable(
-                                R.drawable.rounded_rect_lightgreen_low));
-                        tv_male.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-                        tv_female.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_female.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        selectview(tv_male,tv_female);
                         tv_female.setError(null);
                         tv_male.setError(null);
                     } catch (Exception e) {
@@ -226,12 +214,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
-                        tv_female.setBackground(getResources().getDrawable(
-                                R.drawable.rounded_rect_lightgreen_low));
-                        tv_female.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-                        tv_male.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_male.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        selectview(tv_female,tv_male);
                         tv_female.setError(null);
                         tv_male.setError(null);
                     } catch (Exception e) {
@@ -245,12 +228,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
-                        tv_weekend.setBackground(getResources().getDrawable(
-                                R.drawable.rounded_rect_lightgreen_low));
-                        tv_weekend.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-                        tv_weekday.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_weekday.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        selectview(tv_weekend,tv_weekday);
                         tv_weekend.setError(null);
                         tv_weekday.setError(null);
                     } catch (Exception e) {
@@ -265,12 +243,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
-                        tv_weekday.setBackground(getResources().getDrawable(
-                                R.drawable.rounded_rect_lightgreen_low));
-                        tv_weekday.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-                        tv_weekend.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_weekend.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        selectview(tv_weekday,tv_weekend);
                         tv_weekend.setError(null);
                         tv_weekday.setError(null);
                     } catch (Exception e) {
@@ -285,12 +258,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
-                        tv_day.setBackground(getResources().getDrawable(
-                                R.drawable.rounded_rect_lightgreen_low));
-                        tv_day.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-                        tv_night.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_night.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        selectview(tv_day,tv_night);
                         tv_night.setError(null);
                         tv_day.setError(null);
                     } catch (Exception e) {
@@ -304,12 +272,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
-                        tv_night.setBackground(getResources().getDrawable(
-                                R.drawable.rounded_rect_lightgreen_low));
-                        tv_night.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-                        tv_day.setBackground(getResources().getDrawable(
-                                R.drawable.rect_round));
-                        tv_day.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        selectview(tv_night,tv_day);
                         tv_night.setError(null);
                         tv_day.setError(null);
                     } catch (Exception e) {
@@ -325,6 +288,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
+                        selectview(tv_leather,tv_tennis);
                         if (!match_type) {
                             lyt_overs.setVisibility(View.GONE);
                         }
@@ -338,7 +302,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                         tounament_type = 1;
                         tv_leather.setError(null);
                         tv_tennis.setError(null);
-
+                        lyt_match_type.setVisibility(View.VISIBLE);
                     } catch (Exception e) {
                         e.getMessage();
                         e.printStackTrace();
@@ -349,6 +313,13 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
+                        selectview(tv_tennis,tv_leather);
+                        tounament_type = 2;
+                        tv_leather.setError(null);
+                        tv_tennis.setError(null);
+                        match_type = true;
+                        lyt_match_type.setVisibility(View.GONE);
+                        lyt_overs.setVisibility(View.VISIBLE);
 
                         if(!enableTennis){
                             Toast.makeText(context, "Switch to limited in match type first! ", Toast.LENGTH_SHORT).show();
@@ -384,6 +355,8 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
+                        selectview(tv_limited,tv_unlimited);
+                        match_type = true;
                         enableTennis=true;
                         constraintSet = new ConstraintSet();
                         constraintSet.clone(constraintLayout);
@@ -413,6 +386,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 @Override
                 public void onClick(View v) {
                     try {
+                        selectview(tv_unlimited,tv_limited);
                         constraintSet = new ConstraintSet();
                         constraintSet.clone(constraintLayout);
 
@@ -433,7 +407,7 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                                 R.drawable.rect_round));
                         tv_limited.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                         match_type = false;
-
+                        lyt_overs.setVisibility(View.GONE);
                     } catch (Exception e) {
                         e.getMessage();
                         e.printStackTrace();
@@ -606,22 +580,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 }
             });
 
-
-            tv_custom_teams.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    try {
-                        String custom_age_group = tv_custom_teams.getText().toString();
-                        if (!custom_age_group.equals(maxteams)) {
-                            maxteams = Integer.parseInt(custom_age_group);
-                            selectedstatuscustom(tv_custom_teams, tv_ten_teams, tv_fifteen_teams, tv_twenty_teams);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-
             tv_twelve_players.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -657,26 +615,244 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                     }
                 }
             });
-            et_custom_players.setOnClickListener(new View.OnClickListener() {
+
+
+
+            et_custom_players.addTextChangedListener(new TextWatcher() {
+
                 @Override
-                public void onClick(View v) {
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    maxplayers = 0;
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
                     try {
-                        maxplayers = 20;
-                        String custom_players_group = et_custom_players.getText().toString();
-                        if (!custom_players_group.equals(maxplayers)) {
+                        if (s.length() != 0) {
                             selectedstatuscustom(et_custom_players, tv_twelve_players, tv_fifteen_players, tv_twenty_players);
+                            maxplayers = Integer.parseInt(et_custom_players.getText().toString());
                         }
-                    } catch (Exception e) {
+                    }catch (Exception e){
                         e.printStackTrace();
                     }
                 }
+
             });
+
+            tv_custom_teams.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    maxteams = 0;
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    try {
+                        if (s.length() != 0) {
+                            selectedstatuscustom(tv_custom_teams, tv_ten_teams, tv_fifteen_teams, tv_twenty_teams);
+                            maxteams = Integer.parseInt(tv_custom_teams.getText().toString());
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+
+            });
+
+            et_overs.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    overs = 0;
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    try {
+                        if (s.length() != 0) {
+                            et_overs.setBackground(getResources().getDrawable(
+                                    R.drawable.rounded_rect_lightgreen_low));
+                            et_overs.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
+                            overs = Integer.parseInt(et_overs.getText().toString());
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+
+            });
+
+            et_entry_fee.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    entry_fee = 0;
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    try {
+                        if (s.length() != 0) {
+                            et_entry_fee.setBackground(getResources().getDrawable(
+                                    R.drawable.rounded_rect_lightgreen_low));
+                            et_entry_fee.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
+                            entry_fee = Integer.parseInt(et_entry_fee.getText().toString());
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+
+            });
+            et_runners.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    runners = "";
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    try {
+                        if (s.length() != 0) {
+                            et_runners.setBackground(getResources().getDrawable(
+                                    R.drawable.rounded_rect_lightgreen_low));
+                            et_runners.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
+                            runners = et_runners.getText().toString();
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+
+            });
+            et_winners.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    winners = "";
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    try {
+                        if (s.length() != 0) {
+                            et_winners.setBackground(getResources().getDrawable(
+                                    R.drawable.rounded_rect_lightgreen_low));
+                            et_winners.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
+                            winners = et_winners.getText().toString();
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+
+            });
+            et_mom.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    mom = "";
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    try {
+                        if (s.length() != 0) {
+                            et_mom.setBackground(getResources().getDrawable(
+                                    R.drawable.rounded_rect_lightgreen_low));
+                            et_mom.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
+                            mom = et_mom.getText().toString();
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+
+            });
+
+            et_mos.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    mom = "";
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    try {
+                        if (s.length() != 0) {
+                            et_mos.setBackground(getResources().getDrawable(
+                                    R.drawable.rounded_rect_lightgreen_low));
+                            et_mos.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
+                            mos = et_mos.getText().toString();
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+
+            });
+
+
         } catch (Exception e) {
             e.getMessage();
             e.printStackTrace();
         }
 
     }
+
+    private void setalldefaultvalues() {
+        selectview(tv_tennis,tv_leather);
+        selectview(tv_free,tv_Premium);
+        selectview(tv_limited,tv_unlimited);
+        match_type = true;
+    }
+
+
+    public void selectview(TextView v1,TextView v2){
+        v1.setBackground(getResources().getDrawable(
+                R.drawable.rounded_rect_lightgreen_low));
+        v1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
+        v2.setBackground(getResources().getDrawable(
+                R.drawable.rect_round));
+        v2.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+    }
+
 
     public void selectedstatuscustom(EditText et_Custom, TextView Tv_one, TextView tv_two, TextView tv_three) {
         et_Custom.setBackground(getResources().getDrawable(
@@ -739,22 +915,21 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
             if (!TextUtils.isEmpty(tv_end_date.getText())) {
                 hosttournamentParameters.setEndDate(tv_end_date.getText().toString());
             }
-            hosttournamentParameters.setEntryFee(Integer.parseInt(et_entry_fee.getText().toString()));
+            hosttournamentParameters.setEntryFee(entry_fee);
             hosttournamentParameters.setLimited(match_type);
             hosttournamentParameters.setOvers(Integer.parseInt(et_overs.getText().toString()));
-            hosttournamentParameters.setWinnerPrize(et_winners.getText().toString());
-            hosttournamentParameters.setRunnerPrize(et_runners.getText().toString());
+            hosttournamentParameters.setWinnerPrize(winners);
+            hosttournamentParameters.setRunnerPrize(runners);
             hosttournamentParameters.setMatchType(tounament_type);
             hosttournamentParameters.setMaxPlayers(maxplayers);
             hosttournamentParameters.setGroundId(list);
             hosttournamentParameters.setMatchInstructions(et_instructions.getText().toString());
             hosttournamentParameters.setHostId(GlobalClass.usertoken);
             hosttournamentParameters.setMaxTeams(maxteams);
-            hosttournamentParameters.setMos(et_mos.getText().toString());
-            hosttournamentParameters.setMom("t-shirt");
+            hosttournamentParameters.setMos(mos);
+            hosttournamentParameters.setMom(mom);
             hosttournamentParameters.setMinPlayers(2);
             hosttournamentParameters.setTime(1);
-
             HostTournament();
         } catch (Exception e) {
             e.getMessage();
@@ -835,7 +1010,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                 et_tour_name.setError("Please enter tournament name", customErrorDrawable);
                 flag = false;
             }
-
             if (TextUtils.isEmpty(et_overs.getText()) && match_type) {
                 et_overs.setError("Please enter number of over", customErrorDrawable);
                 flag = false;
@@ -866,6 +1040,10 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
             }
             if (TextUtils.isEmpty(et_runners.getText())) {
                 et_runners.setError("Please enter runners prize", customErrorDrawable);
+                flag = false;
+            }
+            if (TextUtils.isEmpty(et_custom_players.getText())) {
+                et_custom_players.setError("Please enter max players", customErrorDrawable);
                 flag = false;
             }
         } catch (Exception e) {
@@ -1061,16 +1239,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
             e.getMessage();
             e.printStackTrace();
         }
-    }
-
-
-    public void selectview(TextView v1, TextView v2) {
-        v1.setBackground(getResources().getDrawable(
-                R.drawable.rounded_rect_lightgreen_low));
-        v1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_green, 0, 0, 0);
-        v2.setBackground(getResources().getDrawable(
-                R.drawable.rect_round));
-        v2.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
     }
 
 

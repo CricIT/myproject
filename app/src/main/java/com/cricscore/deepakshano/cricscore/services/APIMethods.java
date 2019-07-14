@@ -16,6 +16,7 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
@@ -51,6 +52,8 @@ public interface APIMethods {
     Call<GroupDetailsPojo> getgroupdetails(@Path("groupid") String groupid,@HeaderMap Map<String, String> headers);
 
 
+    @DELETE("group/{groupid}")
+    Call<GeneralPojoClass> deletegroup(@Path("groupid") String groupid,@HeaderMap Map<String, String> headers);
 
 
 

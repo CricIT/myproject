@@ -336,7 +336,6 @@ public class TournamentFragment extends Fragment {
                 try {
                     Log.d("INSIDE FAILURE", "****");
                     if (t instanceof SocketTimeoutException) {
-
                         CustomMessageHelper showDialog = new CustomMessageHelper(context);
                         showDialog.showCustomMessage((Activity) context, "Alert!!", getString(R.string.SOCKET_ISSUE), false, false);
                     } else {
@@ -346,11 +345,9 @@ public class TournamentFragment extends Fragment {
                         no_internet.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.blink));
                         animationView.setVisibility(View.VISIBLE);
                         animationView.playAnimation();
-
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-
                 }
             }
         });
