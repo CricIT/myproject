@@ -18,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ClientServiceGenerator {
 
     public static Retrofit retrofit = null;
-    public static final String ROOT_URL = "https://criapp.herokuapp.com/";
+    public static final String ROOT_URL = "https://criapp-development.herokuapp.com/";
     public static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     public static Retrofit getUrlClient() {

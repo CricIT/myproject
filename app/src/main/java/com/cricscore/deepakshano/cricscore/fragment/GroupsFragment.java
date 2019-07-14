@@ -10,7 +10,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -70,6 +72,9 @@ public class GroupsFragment extends Fragment {
 
                 }
             });
+
+
+
 
        }catch (Exception e){
            e.printStackTrace();
@@ -165,5 +170,9 @@ public class GroupsFragment extends Fragment {
             return;
         }
     }
+
+
+
+
 
 }

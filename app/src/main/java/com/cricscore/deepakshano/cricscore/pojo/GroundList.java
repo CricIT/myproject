@@ -25,7 +25,7 @@ public class GroundList {
     private Object cityCode;
     @SerializedName("rating")
     @Expose
-    private Integer rating;
+    private double rating;
     @SerializedName("ratingCount")
     @Expose
     private Integer ratingCount;
@@ -88,11 +88,11 @@ public class GroundList {
         this.cityCode = cityCode;
     }
 
-    public Integer getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
