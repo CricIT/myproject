@@ -232,8 +232,6 @@ public class TournamentFragment extends Fragment {
                     if (response.isSuccessful()) {
                         if (response.body() != null && response.body().getRequestStatus() == 1) {
                             try {
-
-
                                 tournamentListAdapter.clear();
                                 List<tournamentlist> results = fetchResults(response);
 

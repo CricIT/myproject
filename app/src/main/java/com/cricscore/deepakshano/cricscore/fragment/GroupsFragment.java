@@ -44,42 +44,39 @@ import retrofit2.Response;
 
 public class GroupsFragment extends Fragment {
 
-    private List<GroupListData> getAllGroupsListPojoClass = new ArrayList<>();;
+    private List<GroupListData> getAllGroupsListPojoClass = new ArrayList<>();
     private Context context;
     private ProgressDialog dialog;
     RecyclerView group_lst_recycler_view;
     MyGroupListAdapter myGroupListAdapter;
     Button create_group_btn;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.group_fragment, null);
         try {
-           context = getActivity();
-           group_lst_recycler_view=view.findViewById(R.id.group_lst_recycler_view);
-            create_group_btn=view.findViewById(R.id.create_group_btn);
-           dialog = new ProgressDialog(context);
-           getallGroupsList();
+            context = getActivity();
+            group_lst_recycler_view = view.findViewById(R.id.group_lst_recycler_view);
+            create_group_btn = view.findViewById(R.id.create_group_btn);
+            dialog = new ProgressDialog(context);
+            getallGroupsList();
             create_group_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     try {
                         Intent intent = new Intent(context, CreateGroupActivity.class);
                         startActivity(intent);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                         e.getMessage();
                     }
 
                 }
             });
-
-
-
-
-       }catch (Exception e){
-           e.printStackTrace();
-       }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return view;
     }
 
@@ -91,7 +88,7 @@ public class GroupsFragment extends Fragment {
             dialog.show();
             APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
             Map<String, String> map = new HashMap<>();
-            map.put("Authorization","Bearer "+GlobalClass.usertoken);
+            map.put("Authorization", "Bearer " + GlobalClass.usertoken);
             Call<GetAllGroupsListPojoClass> call = api.getGroupList(map);
             call.enqueue(new Callback<GetAllGroupsListPojoClass>() {
                 @Override
@@ -113,7 +110,7 @@ public class GroupsFragment extends Fragment {
                                         group_lst_recycler_view.setLayoutManager(new GridLayoutManager(context, 2));
                                         group_lst_recycler_view.setAdapter(myGroupListAdapter);
                                         group_lst_recycler_view.setVisibility(View.VISIBLE);
-                                    }catch (Exception e){
+                                    } catch (Exception e) {
                                         e.printStackTrace();
                                     }
                                 } else {
@@ -122,10 +119,10 @@ public class GroupsFragment extends Fragment {
                                     showDialog.showCustomMessage((Activity) context, "Alert!!", getString(R.string.ERROR), false, false);
                                 }
                             }
-                        }else{
+                        } else {
                             dismissDialog();
                             CustomMessageHelper showDialog = new CustomMessageHelper(context);
-                            showDialog.showCustomMessage((Activity) context, "Alert!!",response.message(), false, false);
+                            showDialog.showCustomMessage((Activity) context, "Alert!!", response.message(), false, false);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -139,7 +136,6 @@ public class GroupsFragment extends Fragment {
                         Log.d("INSIDE FAILURE", "****");
                         if (t instanceof SocketTimeoutException) {
                             dismissDialog();
-
                             CustomMessageHelper showDialog = new CustomMessageHelper(context);
                             showDialog.showCustomMessage((Activity) context, "Alert!!", getString(R.string.SOCKET_ISSUE), false, false);
                         } else {
@@ -163,14 +159,12 @@ public class GroupsFragment extends Fragment {
         }
 
     }
+
     public void dismissDialog() {
         if (dialog.isShowing()) {
             dialog.dismiss();
         }
     }
-
-
-
 
 
 }

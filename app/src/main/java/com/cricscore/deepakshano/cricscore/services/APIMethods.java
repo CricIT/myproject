@@ -42,7 +42,7 @@ public interface APIMethods {
     @POST("user/verifyOtp")
     Call<VerifyOtpPojo> verifyOtp(@Body VerifyOtpModelClass verifyOtp);
 
-    @GET("group/userGroups")
+    @GET("group/user-groups")
     Call<GetAllGroupsListPojoClass> getGroupList(@HeaderMap Map<String, String> headers);
 
     @POST("group/create")
@@ -51,11 +51,11 @@ public interface APIMethods {
     @GET("group/info/{groupid}")
     Call<GroupDetailsPojo> getgroupdetails(@Path("groupid") String groupid,@HeaderMap Map<String, String> headers);
 
-
     @DELETE("group/{groupid}")
     Call<GeneralPojoClass> deletegroup(@Path("groupid") String groupid,@HeaderMap Map<String, String> headers);
 
-
+    @GET("group/exit")
+    Call<GeneralPojoClass> exitgroup(@Query("groupId") String groupid,@HeaderMap Map<String, String> headers);
 
 
 }

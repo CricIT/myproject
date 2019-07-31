@@ -37,7 +37,7 @@ public class GroupDetailsActivity extends AppCompatActivity {
             tv_group_details_total_members, tv_group_details_availale_members, tv_group_details_unavailable_members,
             tv_group_details_team1_name, tv_group_details_team1_count, tv_group_details_team2_name, tv_group_details_team2_count,
             tv_group_details_more_teams, tv_group_details_join_request_count;
-    private Button btn_group_details_add_memebers, btn_group_details_join_requests;
+    private TextView btn_group_details_add_memebers, btn_group_details_join_requests;
     private RecyclerView recycler_group_details_member_list;
     private Context context;
     private ProgressDialog dialog;
