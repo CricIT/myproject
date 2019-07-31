@@ -42,7 +42,7 @@ public interface APIMethods {
     @POST("user/verifyOtp")
     Call<VerifyOtpPojo> verifyOtp(@Body VerifyOtpModelClass verifyOtp);
 
-    @GET("group/userGroups")
+    @GET("group/user-groups")
     Call<GetAllGroupsListPojoClass> getGroupList(@HeaderMap Map<String, String> headers);
 
     @POST("group/create")
