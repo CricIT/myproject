@@ -45,7 +45,7 @@ public class GlobalClass {
     public static void hideView(View... views) {
         try{
             for (View v : views) {
-                v.setVisibility(View.INVISIBLE);
+                v.setVisibility(View.GONE);
             }
         }catch (Exception e){
             e.getMessage();

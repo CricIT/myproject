@@ -4,44 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    android:paddingLeft="8dp"
-    android:background="@drawable/group_content_background">
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/group_content_background"
+    android:animateLayoutChanges="true"
+    android:id="@+id/all_parent"
+    android:paddingLeft="8dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_group_member"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_margin="8dp"
-        android:padding="2dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="14dp"
         android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
+        android:padding="2dp"
         android:src="@drawable/usr_1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_group_member_name"
-        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:layout_marginRight="14dp"
-        android:layout_marginLeft="16dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_group_member_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="266dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="266dp"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="Deepak"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img_group_member"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,23 +41,30 @@
         android:id="@+id/tv_group_member_role"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:text="Admin"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_group_member_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_group_member_name" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/btn_expand"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginBottom="14dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginRight="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/expand_more"
-        android:layout_marginRight="16dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/expand_more"
+        />
+
+
+    <android.support.constraint.Group
+        android:id="@+id/group_toggle_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="8dp" />
 
 
 </android.support.constraint.ConstraintLayout>

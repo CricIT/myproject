@@ -2,6 +2,7 @@ package com.cricscore.deepakshano.cricscore.services;
 
 import com.cricscore.deepakshano.cricscore.model.CreateGroupModelClass;
 import com.cricscore.deepakshano.cricscore.model.LoginMobileModelClass;
+import com.cricscore.deepakshano.cricscore.model.ToggleAdmin;
 import com.cricscore.deepakshano.cricscore.model.VerifyOtpModelClass;
 import com.cricscore.deepakshano.cricscore.pojo.GeneralPojoClass;
 import com.cricscore.deepakshano.cricscore.pojo.GetAllGroupsListPojoClass;
@@ -22,6 +23,7 @@ import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -56,6 +58,12 @@ public interface APIMethods {
 
     @GET("group/exit")
     Call<GeneralPojoClass> exitgroup(@Query("groupId") String groupid,@HeaderMap Map<String, String> headers);
+
+    @PUT("group/toggleCoAdmin/{userid}")
+    Call<GeneralPojoClass> promoteUser(@Path("userid")String userid,@HeaderMap Map<String, String> headers, @Body ToggleAdmin toggleAdmin);
+
+    @DELETE("group/member/{groupId}")
+    Call<GeneralPojoClass> removeUser(@Path("groupId")String groupId, @Query("memberId") String memberId,@HeaderMap Map<String, String> headers);
 
 
 }
