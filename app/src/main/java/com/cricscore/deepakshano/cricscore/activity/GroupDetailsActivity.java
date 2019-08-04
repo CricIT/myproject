@@ -56,6 +56,7 @@ public class GroupDetailsActivity extends AppCompatActivity {
     private String userid;
     private AlertDialog alertDialogToggleAdmin;
     private GroupMemberListAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +89,8 @@ public class GroupDetailsActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     try {
-
+                        Intent intent1 = new Intent(context, InviteUserActivity.class);
+                        startActivity(intent1);
                     } catch (Exception e) {
                         e.printStackTrace();
                         e.getMessage();
@@ -154,8 +156,7 @@ public class GroupDetailsActivity extends AppCompatActivity {
                                             member_position = membersLists.get(position).getRole();
                                             if (member_position == 1) {
                                                 Toast.makeText(GroupDetailsActivity.this, "You are the admin!", Toast.LENGTH_SHORT).show();
-                                            }
-                                            else {
+                                            } else {
                                                 showPopUpPromote();
                                             }
 
@@ -246,7 +247,8 @@ public class GroupDetailsActivity extends AppCompatActivity {
                 GlobalClass.showView(btn_make_admin);
                 GlobalClass.showView(btn_remove);
                 GlobalClass.showView(btn_demote);
-            } if (member_position==3){
+            }
+            if (member_position == 3) {
                 GlobalClass.showView(btn_promote_co_admin);
                 GlobalClass.showView(btn_remove);
                 GlobalClass.hideView(btn_demote);

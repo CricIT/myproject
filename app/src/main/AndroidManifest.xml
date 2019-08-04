@@ -28,6 +28,11 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
+            android:name=".activity.InviteUserActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
             android:name=".activity.CreateGroupActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
