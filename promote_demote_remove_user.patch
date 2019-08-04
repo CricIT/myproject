@@ -1,0 +1,800 @@
+Index: app/src/main/java/com/cricscore/deepakshano/cricscore/activity/GroupDetailsActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/cricscore/deepakshano/cricscore/activity/GroupDetailsActivity.java	(revision 6fdba8dd66e116009a048f0fa36b9f85fa8622eb)
++++ app/src/main/java/com/cricscore/deepakshano/cricscore/activity/GroupDetailsActivity.java	(revision 70d9a39b864be704e66827db318a8997666c6323)
+@@ -1,22 +1,28 @@
+ package com.cricscore.deepakshano.cricscore.activity;
+ 
+ import android.app.Activity;
++import android.app.AlertDialog;
+ import android.app.ProgressDialog;
+ import android.content.Context;
+ import android.content.Intent;
+-import android.support.v7.app.AppCompatActivity;
+ import android.os.Bundle;
++import android.support.v7.app.AppCompatActivity;
+ import android.support.v7.widget.LinearLayoutManager;
+ import android.support.v7.widget.RecyclerView;
+ import android.util.Log;
++import android.view.LayoutInflater;
+ import android.view.View;
++import android.view.ViewGroup;
+ import android.widget.Button;
+ import android.widget.TextView;
++import android.widget.Toast;
+ 
+ import com.cricscore.deepakshano.cricscore.R;
+ import com.cricscore.deepakshano.cricscore.adapter.GroupMemberListAdapter;
+ import com.cricscore.deepakshano.cricscore.helper.CustomMessageHelper;
+ import com.cricscore.deepakshano.cricscore.helper.GlobalClass;
++import com.cricscore.deepakshano.cricscore.model.ToggleAdmin;
++import com.cricscore.deepakshano.cricscore.pojo.GeneralPojoClass;
+ import com.cricscore.deepakshano.cricscore.pojo.GroupDetailsPojo;
+ import com.cricscore.deepakshano.cricscore.pojo.GroupMembersList;
+ import com.cricscore.deepakshano.cricscore.retrofit.ClientServiceGenerator;
+@@ -33,20 +39,22 @@
+ 
+ public class GroupDetailsActivity extends AppCompatActivity {
+ 
++    public Button btn_promote;
++    List<GroupMembersList> membersLists;
+     private TextView tv_group_details_name, tv_group_details_location, tv_group_details_description,
+             tv_group_details_total_members, tv_group_details_availale_members, tv_group_details_unavailable_members,
+             tv_group_details_team1_name, tv_group_details_team1_count, tv_group_details_team2_name, tv_group_details_team2_count,
+             tv_group_details_more_teams, tv_group_details_join_request_count;
+     private TextView btn_group_details_add_memebers, btn_group_details_join_requests;
++    private int member_position;
+     private RecyclerView recycler_group_details_member_list;
+     private Context context;
+     private ProgressDialog dialog;
+     private String groupid = "";
+-
++    private ToggleAdmin toggleAdmin;
++    private String userid;
++    private AlertDialog alertDialogToggleAdmin;
+     private GroupMemberListAdapter adapter;
+-    List<GroupMembersList> membersLists;
+-
+-
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+@@ -71,6 +79,8 @@
+             btn_group_details_add_memebers = findViewById(R.id.btn_group_details_add_memebers);
+             btn_group_details_join_requests = findViewById(R.id.btn_group_details_join_requests);
+             recycler_group_details_member_list = findViewById(R.id.recycler_group_details_member_list);
++
++            toggleAdmin = new ToggleAdmin();
+             getgroupdetails();
+ 
+             btn_group_details_add_memebers.setOnClickListener(new View.OnClickListener() {
+@@ -85,6 +95,7 @@
+                 }
+             });
+ 
++
+             btn_group_details_join_requests.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+@@ -104,6 +115,7 @@
+         }
+     }
+ 
++
+     private void getgroupdetails() {
+         try {
+             dialog.setMessage("please wait.");
+@@ -111,7 +123,7 @@
+             dialog.show();
+             APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
+             Map<String, String> map = new HashMap<>();
+-            map.put("Authorization","Bearer " + GlobalClass.usertoken);
++            map.put("Authorization", "Bearer " + GlobalClass.usertoken);
+             Call<GroupDetailsPojo> call = api.getgroupdetails(groupid, map);
+             call.enqueue(new Callback<GroupDetailsPojo>() {
+                 @Override
+@@ -133,8 +145,21 @@
+                                     tv_group_details_team2_count.setText("2 members");
+                                     tv_group_details_more_teams.setText("New");
+                                     tv_group_details_join_request_count.setText("15");
+-                                    membersLists=response.body().getGroupDetails().getMembers();
+-                                    adapter = new GroupMemberListAdapter(context,membersLists);
++                                    membersLists = response.body().getGroupDetails().getMembers();
++                                    adapter = new GroupMemberListAdapter(context, membersLists, new GroupMemberListAdapter.GroupMemberListAdapterListener() {
++                                        @Override
++                                        public void onItemClickListener(int position) {
++                                            userid = membersLists.get(position).getUserId();
++                                            member_position = membersLists.get(position).getRole();
++                                            if (member_position == 1) {
++                                                Toast.makeText(GroupDetailsActivity.this, "You are the admin!", Toast.LENGTH_SHORT).show();
++                                            }
++                                            else {
++                                                showPopUpPromote();
++                                            }
++
++                                        }
++                                    });
+                                     recycler_group_details_member_list.setHasFixedSize(true);
+                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+                                     recycler_group_details_member_list.setLayoutManager(layoutManager);
+@@ -184,7 +209,240 @@
+                     }
+                 }
+             });
++        } catch (Exception e) {
++            e.printStackTrace();
++            e.getMessage();
++        }
++
++    }
++
++    private void showPopUpPromote() {
++        try {
++            final TextView btn_promote_co_admin, btn_demote, btn_remove, btn_make_admin;
++
++            //before inflating the custom alert dialog layout, we will get the current activity viewgroup
++            ViewGroup viewGroup = findViewById(android.R.id.content);
++
++            //then we will inflate the custom alert dialog xml that we created
++            View dialogView = LayoutInflater.from(this).inflate(R.layout.group_member_toggle, viewGroup, false);
++
++
++            //Now we need an AlertDialog.Builder object
++            AlertDialog.Builder builder = new AlertDialog.Builder(this);
++
++            //setting the view of the builder to our custom view that we already inflated
++            builder.setView(dialogView);
++
++            //finally creating the alert dialog and displaying it
++            alertDialogToggleAdmin = builder.create();
++            btn_demote = dialogView.findViewById(R.id.tv_demote_co_admin);
++            btn_make_admin = dialogView.findViewById(R.id.tv_promote_admin);
++            btn_promote_co_admin = dialogView.findViewById(R.id.tv_promote_co_admin);
++            btn_remove = dialogView.findViewById(R.id.tv_remove);
++
++            if (member_position == 2) {
++                GlobalClass.hideView(btn_promote_co_admin);
++                GlobalClass.showView(btn_make_admin);
++                GlobalClass.showView(btn_remove);
++                GlobalClass.showView(btn_demote);
++            } if (member_position==3){
++                GlobalClass.showView(btn_promote_co_admin);
++                GlobalClass.showView(btn_remove);
++                GlobalClass.hideView(btn_demote);
++                GlobalClass.hideView(btn_make_admin);
++
++            }
++
++
++            btn_promote_co_admin.setOnClickListener(new View.OnClickListener() {
++                @Override
++                public void onClick(View v) {
++
++                    makeCoAdmin(1);
++                }
++            });
++
++            btn_demote.setOnClickListener(new View.OnClickListener() {
++                @Override
++                public void onClick(View v) {
++                    makeCoAdmin(0);
++
++                }
++            });
++
++            btn_remove.setOnClickListener(new View.OnClickListener() {
++                @Override
++                public void onClick(View v) {
++                    removeMember();
++
++                }
++            });
++
++            btn_make_admin.setOnClickListener(new View.OnClickListener() {
++                @Override
++                public void onClick(View v) {
++
++                }
++            });
++            alertDialogToggleAdmin.show();
++
++        } catch (Exception e) {
++            e.printStackTrace();
++            e.getMessage();
++        }
++
++    }
++
++
++    private void removeMember() {
++        try {
++            dialog.setMessage("please wait.");
++            dialog.setCancelable(false);
++            dialog.show();
++            APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
++            Map<String, String> map = new HashMap<>();
++            map.put("Authorization", "Bearer " + GlobalClass.usertoken);
++
++            Call<GeneralPojoClass> call = api.removeUser(groupid, userid, map);
++            call.enqueue(new Callback<GeneralPojoClass>() {
++                @Override
++                public void onResponse(Call<GeneralPojoClass> call, Response<GeneralPojoClass> response) {
++                    try {
++                        if (response.isSuccessful()) {
++                            if (response.body().getRequestStatus() == 1) {
++                                try {
++                                    dismissDialog();
++                                    Toast.makeText(GroupDetailsActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
++
++                                } catch (Exception e) {
++                                    e.printStackTrace();
++                                }
++                            } else {
++                                dismissDialog();
++                                CustomMessageHelper showDialog = new CustomMessageHelper(context);
++                                showDialog.showCustomMessage((Activity) context, "Alert!!", getString(R.string.ERROR), false, false);
++                            }
++                        } else {
++                            dismissDialog();
++                            CustomMessageHelper showDialog = new CustomMessageHelper(context);
++                            showDialog.showCustomMessage((Activity) context, "Alert!!", response.message(), false, false);
++                        }
++                    } catch (Exception e) {
++                        dismissDialog();
++                        e.printStackTrace();
++                        e.getMessage();
++                    }
++                }
++
++                @Override
++                public void onFailure(Call<GeneralPojoClass> call, Throwable t) {
++                    try {
++                        Log.d("INSIDE FAILURE", "****");
++                        if (t instanceof SocketTimeoutException) {
++                            dismissDialog();
++                           /* hideView(progressBar);
++                            phoneNumber.setEnabled(true);
++                            ccp.setClickable(true);
++                            loginButton.setEnabled(true);*/
++                            CustomMessageHelper showDialog = new CustomMessageHelper(context);
++                            showDialog.showCustomMessage((Activity) context, "Alert!!", getString(R.string.SOCKET_ISSUE), false, false);
++                        } else {
++                            dismissDialog();
++                           /* hideView(progressBar);
++                            phoneNumber.setEnabled(true);
++                            ccp.setClickable(true);
++                            loginButton.setEnabled(true);*/
++                            CustomMessageHelper showDialog = new CustomMessageHelper(context);
++                            showDialog.showCustomMessage((Activity) context, "Alert!!", getString(R.string.NETWORK_ISSUE), false, false);
++                        }
++                    } catch (Exception e) {
++                        dismissDialog();
++                        e.printStackTrace();
++
++                    }
++                }
++            });
+         } catch (Exception e) {
++            dismissDialog();
++            e.printStackTrace();
++            e.getMessage();
++        }
++
++    }
++
++    private void makeCoAdmin(int bool) {
++        try {
++            dialog.setMessage("please wait.");
++            dialog.setCancelable(false);
++            dialog.show();
++            APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
++            Map<String, String> map = new HashMap<>();
++            map.put("Authorization", "Bearer " + GlobalClass.usertoken);
++            toggleAdmin.setGroupid(groupid);
++            toggleAdmin.setBool(bool);
++
++            Call<GeneralPojoClass> call = api.promoteUser(userid, map, toggleAdmin);
++            call.enqueue(new Callback<GeneralPojoClass>() {
++                @Override
++                public void onResponse(Call<GeneralPojoClass> call, Response<GeneralPojoClass> response) {
++                    try {
++                        if (response.isSuccessful()) {
++                            if (response.body().getRequestStatus() == 1) {
++                                try {
++                                    dismissDialog();
++                                    Toast.makeText(GroupDetailsActivity.this, userid + "has been promoted!", Toast.LENGTH_SHORT).show();
++                                    alertDialogToggleAdmin.dismiss();
++
++                                } catch (Exception e) {
++                                    e.printStackTrace();
++                                }
++                            } else {
++                                dismissDialog();
++                                CustomMessageHelper showDialog = new CustomMessageHelper(context);
++                                showDialog.showCustomMessage((Activity) context, "Alert!!", getString(R.string.ERROR), false, false);
++                            }
++                        } else {
++                            dismissDialog();
++                            CustomMessageHelper showDialog = new CustomMessageHelper(context);
++                            showDialog.showCustomMessage((Activity) context, "Alert!!", response.message(), false, false);
++                        }
++                    } catch (Exception e) {
++                        dismissDialog();
++                        e.printStackTrace();
++                        e.getMessage();
++                    }
++                }
++
++                @Override
++                public void onFailure(Call<GeneralPojoClass> call, Throwable t) {
++                    try {
++                        Log.d("INSIDE FAILURE", "****");
++                        if (t instanceof SocketTimeoutException) {
++                            dismissDialog();
++                           /* hideView(progressBar);
++                            phoneNumber.setEnabled(true);
++                            ccp.setClickable(true);
++                            loginButton.setEnabled(true);*/
++                            CustomMessageHelper showDialog = new CustomMessageHelper(context);
++                            showDialog.showCustomMessage((Activity) context, "Alert!!", getString(R.string.SOCKET_ISSUE), false, false);
++                        } else {
++                            dismissDialog();
++                           /* hideView(progressBar);
++                            phoneNumber.setEnabled(true);
++                            ccp.setClickable(true);
++                            loginButton.setEnabled(true);*/
++                            CustomMessageHelper showDialog = new CustomMessageHelper(context);
++                            showDialog.showCustomMessage((Activity) context, "Alert!!", getString(R.string.NETWORK_ISSUE), false, false);
++                        }
++                    } catch (Exception e) {
++                        dismissDialog();
++                        e.printStackTrace();
++
++                    }
++                }
++            });
++        } catch (Exception e) {
++            dismissDialog();
+             e.printStackTrace();
+             e.getMessage();
+         }
+@@ -198,4 +456,6 @@
+             return;
+         }
+     }
++
++
+ }
+Index: app/src/main/java/com/cricscore/deepakshano/cricscore/adapter/GroupMemberListAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/cricscore/deepakshano/cricscore/adapter/GroupMemberListAdapter.java	(revision 6fdba8dd66e116009a048f0fa36b9f85fa8622eb)
++++ app/src/main/java/com/cricscore/deepakshano/cricscore/adapter/GroupMemberListAdapter.java	(revision 70d9a39b864be704e66827db318a8997666c6323)
+@@ -2,12 +2,14 @@
+ 
+ import android.content.Context;
+ import android.support.annotation.NonNull;
++import android.support.constraint.ConstraintLayout;
++import android.support.constraint.Group;
+ import android.support.v7.widget.RecyclerView;
+ import android.view.LayoutInflater;
+ import android.view.View;
+ import android.view.ViewGroup;
++import android.widget.Button;
+ import android.widget.ImageView;
+-import android.widget.LinearLayout;
+ import android.widget.TextView;
+ 
+ import com.cricscore.deepakshano.cricscore.R;
+@@ -17,20 +19,18 @@
+ 
+ import de.hdodenhof.circleimageview.CircleImageView;
+ 
+-/**
+- * Created by Deepak Shano on 6/14/2019.
+- */
+ 
+ public class GroupMemberListAdapter extends RecyclerView.Adapter<GroupMemberListAdapter.ViewHolder> {
+ 
+     Context context;
+     List<GroupMembersList> membersLists;
++    GroupMemberListAdapter.GroupMemberListAdapterListener groupMemberListAdapterListener;
+ 
+ 
+-    public GroupMemberListAdapter(Context context, List<GroupMembersList> membersLists) {
++    public GroupMemberListAdapter(Context context, List<GroupMembersList> membersLists,GroupMemberListAdapterListener groupMemberListAdapterListener) {
+         this.context = context;
+         this.membersLists = membersLists;
+-
++        this.groupMemberListAdapterListener=groupMemberListAdapterListener;
+     }
+ 
+     @NonNull
+@@ -40,9 +40,14 @@
+         return new ViewHolder(view);
+     }
+ 
++    public interface GroupMemberListAdapterListener { // create an interface
++        void onItemClickListener(int position); // create callback function
++    }
++
+     @Override
+-    public void onBindViewHolder(ViewHolder holder, final int position) {
++    public void onBindViewHolder(final ViewHolder holder, final int position) {
+         try {
++
+             switch (membersLists.get(position).getRole()) {
+                 case 1:
+                     holder.tv_group_member_role.setText("Admin");
+@@ -55,6 +60,31 @@
+                     break;
+             }
+ 
++            holder.btn_expand.setOnClickListener(new View.OnClickListener() {
++                @Override
++                public void onClick(View v) {
++                    if (!holder.toggleDown){
++                        holder.toggleDown=true;
++                        holder.btn_expand.setBackgroundResource(R.drawable.expand_less);
++                    }
++                    else {
++                         holder.toggleDown=false;
++
++                        holder.btn_expand.setBackgroundResource(R.drawable.expand_more);
++                    }
++
++                }
++            });
++
++            holder.main.setOnClickListener(new View.OnClickListener() {
++                @Override
++                public void onClick(View v) {
++                    groupMemberListAdapterListener.onItemClickListener(position);
++                }
++            });
++
++
++
+         } catch (Exception e) {
+             e.printStackTrace();
+             e.getMessage();
+@@ -72,12 +102,22 @@
+ 
+         public TextView tv_group_member_name, tv_group_member_role;
+         public CircleImageView img_group_member;
++        public ImageView btn_expand;
++
++        public boolean toggleDown=false;
++        ConstraintLayout main;
++
++
+ 
+         public ViewHolder(View view) {
+             super(view);
+-            tv_group_member_name = itemView.findViewById(R.id.tv_group_member_name);
+-            img_group_member = itemView.findViewById(R.id.img_group_member);
+-            tv_group_member_role = itemView.findViewById(R.id.tv_group_member_role);
++            tv_group_member_name = view.findViewById(R.id.tv_group_member_name);
++            img_group_member = view.findViewById(R.id.img_group_member);
++            tv_group_member_role = view.findViewById(R.id.tv_group_member_role);
++            btn_expand=view.findViewById(R.id.btn_expand);
++            main=view.findViewById(R.id.all_parent);
++
++
+         }
+     }
+ }
+Index: app/src/main/java/com/cricscore/deepakshano/cricscore/helper/GlobalClass.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/cricscore/deepakshano/cricscore/helper/GlobalClass.java	(revision 6fdba8dd66e116009a048f0fa36b9f85fa8622eb)
++++ app/src/main/java/com/cricscore/deepakshano/cricscore/helper/GlobalClass.java	(revision 70d9a39b864be704e66827db318a8997666c6323)
+@@ -45,7 +45,7 @@
+     public static void hideView(View... views) {
+         try{
+             for (View v : views) {
+-                v.setVisibility(View.INVISIBLE);
++                v.setVisibility(View.GONE);
+             }
+         }catch (Exception e){
+             e.getMessage();
+Index: app/src/main/java/com/cricscore/deepakshano/cricscore/model/ToggleAdmin.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/cricscore/deepakshano/cricscore/model/ToggleAdmin.java	(revision 70d9a39b864be704e66827db318a8997666c6323)
++++ app/src/main/java/com/cricscore/deepakshano/cricscore/model/ToggleAdmin.java	(revision 70d9a39b864be704e66827db318a8997666c6323)
+@@ -0,0 +1,31 @@
++package com.cricscore.deepakshano.cricscore.model;
++
++import com.google.gson.annotations.Expose;
++import com.google.gson.annotations.SerializedName;
++
++public class ToggleAdmin {
++
++    @SerializedName("groupId")
++    @Expose
++    String groupid;
++
++    @SerializedName("bool")
++    @Expose
++    int bool;
++
++    public String getGroupid() {
++        return groupid;
++    }
++
++    public void setGroupid(String groupid) {
++        this.groupid = groupid;
++    }
++
++    public int getBool() {
++        return bool;
++    }
++
++    public void setBool(int bool) {
++        this.bool = bool;
++    }
++}
+Index: app/src/main/java/com/cricscore/deepakshano/cricscore/services/APIMethods.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/cricscore/deepakshano/cricscore/services/APIMethods.java	(revision 6fdba8dd66e116009a048f0fa36b9f85fa8622eb)
++++ app/src/main/java/com/cricscore/deepakshano/cricscore/services/APIMethods.java	(revision 70d9a39b864be704e66827db318a8997666c6323)
+@@ -2,6 +2,7 @@
+ 
+ import com.cricscore.deepakshano.cricscore.model.CreateGroupModelClass;
+ import com.cricscore.deepakshano.cricscore.model.LoginMobileModelClass;
++import com.cricscore.deepakshano.cricscore.model.ToggleAdmin;
+ import com.cricscore.deepakshano.cricscore.model.VerifyOtpModelClass;
+ import com.cricscore.deepakshano.cricscore.pojo.GeneralPojoClass;
+ import com.cricscore.deepakshano.cricscore.pojo.GetAllGroupsListPojoClass;
+@@ -22,6 +23,7 @@
+ import retrofit2.http.HeaderMap;
+ import retrofit2.http.Headers;
+ import retrofit2.http.POST;
++import retrofit2.http.PUT;
+ import retrofit2.http.Path;
+ import retrofit2.http.Query;
+ 
+@@ -57,5 +59,11 @@
+     @GET("group/exit")
+     Call<GeneralPojoClass> exitgroup(@Query("groupId") String groupid,@HeaderMap Map<String, String> headers);
+ 
++    @PUT("group/toggleCoAdmin/{userid}")
++    Call<GeneralPojoClass> promoteUser(@Path("userid")String userid,@HeaderMap Map<String, String> headers, @Body ToggleAdmin toggleAdmin);
++
++    @DELETE("group/member/{groupId}")
++    Call<GeneralPojoClass> removeUser(@Path("groupId")String groupId, @Query("memberId") String memberId,@HeaderMap Map<String, String> headers);
++
+ 
+ }
+Index: app/src/main/res/layout/group_member_list_recycler_content.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/group_member_list_recycler_content.xml	(revision 6fdba8dd66e116009a048f0fa36b9f85fa8622eb)
++++ app/src/main/res/layout/group_member_list_recycler_content.xml	(revision 70d9a39b864be704e66827db318a8997666c6323)
+@@ -4,44 +4,36 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+-    android:layout_marginBottom="8dp"
+     android:layout_marginLeft="16dp"
+     android:layout_marginRight="16dp"
+-    android:paddingLeft="8dp"
+-    android:background="@drawable/group_content_background">
++    android:layout_marginBottom="8dp"
++    android:background="@drawable/group_content_background"
++    android:animateLayoutChanges="true"
++    android:id="@+id/all_parent"
++    android:paddingLeft="8dp">
+ 
+     <de.hdodenhof.circleimageview.CircleImageView
+         android:id="@+id/img_group_member"
+         android:layout_width="40dp"
+         android:layout_height="40dp"
+         android:layout_margin="8dp"
+-        android:padding="2dp"
+-        android:layout_marginBottom="8dp"
+-        android:layout_marginEnd="14dp"
+         android:layout_marginStart="16dp"
++        android:layout_marginLeft="16dp"
+         android:layout_marginTop="8dp"
++        android:padding="2dp"
+         android:src="@drawable/usr_1"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toStartOf="@+id/tv_group_member_name"
+-        app:layout_constraintHorizontal_bias="0.6"
+         app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent"
+-        app:layout_constraintVertical_bias="0.0"
+-        android:layout_marginRight="14dp"
+-        android:layout_marginLeft="16dp" />
++        app:layout_constraintTop_toTopOf="parent" />
+ 
+     <TextView
+         android:id="@+id/tv_group_member_name"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:layout_marginEnd="266dp"
++        android:layout_marginStart="8dp"
+         android:layout_marginLeft="8dp"
+-        android:layout_marginRight="266dp"
+-        android:layout_marginStart="8dp"
+         android:layout_marginTop="8dp"
+         android:text="Deepak"
+         android:textAlignment="center"
+-        app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toEndOf="@+id/img_group_member"
+         app:layout_constraintTop_toTopOf="parent" />
+ 
+@@ -49,23 +41,30 @@
+         android:id="@+id/tv_group_member_role"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:layout_marginBottom="8dp"
+         android:text="Admin"
+         android:textAlignment="center"
+-        app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintStart_toStartOf="@+id/tv_group_member_name"
+         app:layout_constraintTop_toBottomOf="@+id/tv_group_member_name" />
+ 
+     <ImageView
+-        android:id="@+id/imageView4"
++        android:id="@+id/btn_expand"
+         android:layout_width="25dp"
+         android:layout_height="25dp"
+-        android:layout_marginBottom="14dp"
++        android:layout_marginTop="8dp"
+         android:layout_marginEnd="16dp"
+-        app:layout_constraintBottom_toBottomOf="parent"
++        android:layout_marginRight="16dp"
+         app:layout_constraintEnd_toEndOf="parent"
+-        app:srcCompat="@drawable/expand_more"
+-        android:layout_marginRight="16dp" />
++        app:layout_constraintTop_toTopOf="parent"
++        android:background="@drawable/expand_more"
++        />
++
++
++    <android.support.constraint.Group
++        android:id="@+id/group_toggle_down"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:visibility="gone"
++        tools:layout_editor_absoluteX="8dp" />
+ 
+ 
+ </android.support.constraint.ConstraintLayout>
+Index: app/src/main/res/layout/group_member_toggle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/group_member_toggle.xml	(revision 70d9a39b864be704e66827db318a8997666c6323)
++++ app/src/main/res/layout/group_member_toggle.xml	(revision 70d9a39b864be704e66827db318a8997666c6323)
+@@ -0,0 +1,56 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_margin="16dp"
++    android:background="@drawable/white_rectangle"
++    android:layout_height="wrap_content"
++    android:orientation="vertical">
++
++
++    <TextView
++        android:id="@+id/tv_promote_admin"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="8dp"
++        android:layout_marginLeft="8dp"
++        android:layout_marginTop="16dp"
++        android:fontFamily="@font/roboto"
++        android:text="Promote as Admin"
++        android:textSize="16sp" />
++
++    <TextView
++        android:id="@+id/tv_promote_co_admin"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="8dp"
++        android:layout_marginLeft="8dp"
++        android:layout_marginTop="16dp"
++        android:fontFamily="@font/roboto"
++        android:text="Promote as Co-Admin"
++        android:textSize="16sp" />
++
++    <TextView
++        android:id="@+id/tv_demote_co_admin"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="8dp"
++        android:layout_marginLeft="8dp"
++        android:layout_marginTop="16dp"
++        android:fontFamily="@font/roboto"
++        android:text="Demote Co-Admin"
++        android:textSize="16sp" />
++    <TextView
++        android:id="@+id/tv_remove"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="8dp"
++        android:layout_marginLeft="8dp"
++        android:layout_marginTop="16dp"
++        android:layout_marginBottom="16dp"
++        android:fontFamily="@font/roboto"
++        android:text="Remove from group"
++        android:textSize="16sp" />
++
++</LinearLayout>
+Index: app/src/main/res/layout/join_request_popup.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/join_request_popup.xml	(revision 6fdba8dd66e116009a048f0fa36b9f85fa8622eb)
++++ app/src/main/res/layout/join_request_popup.xml	(revision 70d9a39b864be704e66827db318a8997666c6323)
+@@ -106,9 +106,9 @@
+         android:layout_marginRight="8dp"
+         android:layout_marginBottom="8dp"
+         android:background="@drawable/rounded_gray_rect_border_only"
+-        app:layout_constraintBottom_toTopOf="@+id/button4"
+-        app:layout_constraintEnd_toEndOf="@+id/button5"
+-        app:layout_constraintStart_toStartOf="@+id/button4"
++        app:layout_constraintBottom_toTopOf="@+id/btn_promote"
++        app:layout_constraintEnd_toEndOf="@+id/btn_demote"
++        app:layout_constraintStart_toStartOf="@+id/btn_promote"
+         app:layout_constraintTop_toTopOf="@+id/textView15" />
+ 
+     <TextView
+@@ -215,7 +215,7 @@
+         app:layout_constraintTop_toBottomOf="@+id/textView21" />
+ 
+     <Button
+-        android:id="@+id/button4"
++        android:id="@+id/btn_promote"
+         style="@style/Widget.AppCompat.Button.Borderless"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+@@ -232,13 +232,13 @@
+         android:textColor="@color/white"
+         android:textSize="12sp"
+         app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toStartOf="@+id/button5"
++        app:layout_constraintEnd_toStartOf="@+id/btn_demote"
+         app:layout_constraintHorizontal_bias="0.5"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/textView22" />
+ 
+     <Button
+-        android:id="@+id/button5"
++        android:id="@+id/btn_demote"
+         style="@style/Widget.AppCompat.Button.Borderless"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+@@ -255,8 +255,8 @@
+         android:textSize="12sp"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.5"
+-        app:layout_constraintStart_toEndOf="@+id/button4"
+-        app:layout_constraintTop_toTopOf="@+id/button4"
++        app:layout_constraintStart_toEndOf="@+id/btn_promote"
++        app:layout_constraintTop_toTopOf="@+id/btn_promote"
+         android:drawableLeft="@drawable/round_cancel" />
+ 
+ </android.support.constraint.ConstraintLayout>

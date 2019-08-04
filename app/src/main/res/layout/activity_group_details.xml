@@ -307,20 +307,20 @@
             app:layout_constraintTop_toBottomOf="@+id/team_one" />
 
         <TextView
-            android:id="@+id/btn_group_details_invite_memebers"
+            android:id="@+id/btn_group_details_add_memebers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/dotted_lightgreen_rect"
-            android:drawableStart="@drawable/green_plus_btn"
             android:drawableLeft="@drawable/green_plus_btn"
             android:drawablePadding="8dp"
+            android:drawableStart="@drawable/green_plus_btn"
             android:fontFamily="@font/roboto"
-            android:paddingLeft="12dp"
-            android:paddingTop="8dp"
-            android:paddingRight="12dp"
             android:paddingBottom="8dp"
-            android:text="Invite Memebers"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="8dp"
+            android:text="Add Memebers"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
@@ -364,10 +364,10 @@
             android:textAllCaps="false"
             android:textColor="@color/blue"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_group_details_invite_memebers"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_group_details_add_memebers"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_group_details_invite_memebers"
-            app:layout_constraintTop_toTopOf="@+id/btn_group_details_invite_memebers"
+            app:layout_constraintStart_toEndOf="@+id/btn_group_details_add_memebers"
+            app:layout_constraintTop_toTopOf="@+id/btn_group_details_add_memebers"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="16dp" />
 
@@ -381,7 +381,7 @@
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_group_details_invite_memebers">
+            app:layout_constraintTop_toBottomOf="@+id/btn_group_details_add_memebers">
 
         </android.support.v7.widget.RecyclerView>
 

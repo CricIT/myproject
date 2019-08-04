@@ -125,7 +125,6 @@ public class GroupsFragment extends Fragment {
                             showDialog.showCustomMessage((Activity) context, "Alert!!", response.message(), false, false);
                         }
                     } catch (Exception e) {
-                        dismissDialog();
                         e.printStackTrace();
                         e.getMessage();
                     }
@@ -149,14 +148,12 @@ public class GroupsFragment extends Fragment {
                             showDialog.showCustomMessage((Activity) context, "Alert!!", getString(R.string.NETWORK_ISSUE), false, false);
                         }
                     } catch (Exception e) {
-                        dismissDialog();
                         e.printStackTrace();
 
                     }
                 }
             });
         } catch (Exception e) {
-            dismissDialog();
             e.printStackTrace();
             e.getMessage();
         }

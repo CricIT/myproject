@@ -106,9 +106,9 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/rounded_gray_rect_border_only"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
-        app:layout_constraintEnd_toEndOf="@+id/button5"
-        app:layout_constraintStart_toStartOf="@+id/button4"
+        app:layout_constraintBottom_toTopOf="@+id/btn_promote"
+        app:layout_constraintEnd_toEndOf="@+id/btn_demote"
+        app:layout_constraintStart_toStartOf="@+id/btn_promote"
         app:layout_constraintTop_toTopOf="@+id/textView15" />
 
     <TextView
@@ -215,7 +215,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btn_promote"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -232,13 +232,13 @@
         android:textColor="@color/white"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button5"
+        app:layout_constraintEnd_toStartOf="@+id/btn_demote"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/btn_demote"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -255,8 +255,8 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button4"
-        app:layout_constraintTop_toTopOf="@+id/button4"
+        app:layout_constraintStart_toEndOf="@+id/btn_promote"
+        app:layout_constraintTop_toTopOf="@+id/btn_promote"
         android:drawableLeft="@drawable/round_cancel" />
 
 </android.support.constraint.ConstraintLayout>

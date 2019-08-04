@@ -2,12 +2,14 @@ package com.cricscore.deepakshano.cricscore.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.Group;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cricscore.deepakshano.cricscore.R;
@@ -17,20 +19,18 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by Deepak Shano on 6/14/2019.
- */
 
 public class GroupMemberListAdapter extends RecyclerView.Adapter<GroupMemberListAdapter.ViewHolder> {
 
     Context context;
     List<GroupMembersList> membersLists;
+    GroupMemberListAdapter.GroupMemberListAdapterListener groupMemberListAdapterListener;
 
 
-    public GroupMemberListAdapter(Context context, List<GroupMembersList> membersLists) {
+    public GroupMemberListAdapter(Context context, List<GroupMembersList> membersLists,GroupMemberListAdapterListener groupMemberListAdapterListener) {
         this.context = context;
         this.membersLists = membersLists;
-
+        this.groupMemberListAdapterListener=groupMemberListAdapterListener;
     }
 
     @NonNull
@@ -40,9 +40,14 @@ public class GroupMemberListAdapter extends RecyclerView.Adapter<GroupMemberList
         return new ViewHolder(view);
     }
 
+    public interface GroupMemberListAdapterListener { // create an interface
+        void onItemClickListener(int position); // create callback function
+    }
+
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         try {
+
 
 
             switch (membersLists.get(position).getRole()) {
@@ -56,6 +61,31 @@ public class GroupMemberListAdapter extends RecyclerView.Adapter<GroupMemberList
                     holder.tv_group_member_role.setText("Member");
                     break;
             }
+
+            holder.btn_expand.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!holder.toggleDown){
+                        holder.toggleDown=true;
+                        holder.btn_expand.setBackgroundResource(R.drawable.expand_less);
+                    }
+                    else {
+                         holder.toggleDown=false;
+
+                        holder.btn_expand.setBackgroundResource(R.drawable.expand_more);
+                    }
+
+                }
+            });
+
+            holder.main.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    groupMemberListAdapterListener.onItemClickListener(position);
+                }
+            });
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,12 +104,22 @@ public class GroupMemberListAdapter extends RecyclerView.Adapter<GroupMemberList
 
         public TextView tv_group_member_name, tv_group_member_role;
         public CircleImageView img_group_member;
+        public ImageView btn_expand;
+
+        public boolean toggleDown=false;
+        ConstraintLayout main;
+
+
 
         public ViewHolder(View view) {
             super(view);
-            tv_group_member_name = itemView.findViewById(R.id.tv_group_member_name);
-            img_group_member = itemView.findViewById(R.id.img_group_member);
-            tv_group_member_role = itemView.findViewById(R.id.tv_group_member_role);
+            tv_group_member_name = view.findViewById(R.id.tv_group_member_name);
+            img_group_member = view.findViewById(R.id.img_group_member);
+            tv_group_member_role = view.findViewById(R.id.tv_group_member_role);
+            btn_expand=view.findViewById(R.id.btn_expand);
+            main=view.findViewById(R.id.all_parent);
+
+
         }
     }
 }
