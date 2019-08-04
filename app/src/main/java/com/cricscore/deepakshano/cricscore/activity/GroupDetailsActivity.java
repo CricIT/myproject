@@ -28,6 +28,7 @@ import com.cricscore.deepakshano.cricscore.pojo.GroupMembersList;
 import com.cricscore.deepakshano.cricscore.retrofit.ClientServiceGenerator;
 import com.cricscore.deepakshano.cricscore.services.APIMethods;
 
+import java.net.InterfaceAddress;
 import java.net.SocketTimeoutException;
 import java.util.HashMap;
 import java.util.List;
@@ -47,6 +48,7 @@ public class GroupDetailsActivity extends AppCompatActivity {
             tv_group_details_more_teams, tv_group_details_join_request_count;
     private TextView btn_group_details_add_memebers, btn_group_details_join_requests;
     private int member_position;
+    private TextView btn_group_details_invite_memebers, btn_group_details_join_requests;
     private RecyclerView recycler_group_details_member_list;
     private Context context;
     private ProgressDialog dialog;
@@ -62,7 +64,7 @@ public class GroupDetailsActivity extends AppCompatActivity {
             context = this;
             dialog = new ProgressDialog(context);
             setContentView(R.layout.activity_group_details);
-            Intent intent = getIntent();
+            final Intent intent = getIntent();
             groupid = intent.getStringExtra("group_id");
             tv_group_details_name = findViewById(R.id.tv_group_details_name);
             tv_group_details_location = findViewById(R.id.tv_group_details_location);
@@ -76,18 +78,19 @@ public class GroupDetailsActivity extends AppCompatActivity {
             tv_group_details_team2_count = findViewById(R.id.tv_group_details_team2_count);
             tv_group_details_more_teams = findViewById(R.id.tv_group_details_more_teams);
             tv_group_details_join_request_count = findViewById(R.id.tv_group_details_join_request_count);
-            btn_group_details_add_memebers = findViewById(R.id.btn_group_details_add_memebers);
+            btn_group_details_invite_memebers = findViewById(R.id.btn_group_details_invite_memebers);
             btn_group_details_join_requests = findViewById(R.id.btn_group_details_join_requests);
             recycler_group_details_member_list = findViewById(R.id.recycler_group_details_member_list);
 
             toggleAdmin = new ToggleAdmin();
             getgroupdetails();
 
-            btn_group_details_add_memebers.setOnClickListener(new View.OnClickListener() {
+            btn_group_details_invite_memebers.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     try {
-
+                        Intent intent1=new Intent(context,InviteUserActivity.class);
+                        startActivity(intent1);
                     } catch (Exception e) {
                         e.printStackTrace();
                         e.getMessage();

@@ -1,4 +1,4 @@
-package com.cricscore.deepakshano.cricscore.activity;
+package com.cricscore.deepakshano.cricscore.helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;

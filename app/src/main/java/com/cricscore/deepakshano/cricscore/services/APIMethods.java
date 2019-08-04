@@ -11,6 +11,7 @@ import com.cricscore.deepakshano.cricscore.pojo.PaginatedGroundListPoJo;
 import com.cricscore.deepakshano.cricscore.pojo.TournamentListPojoClass;
 import com.cricscore.deepakshano.cricscore.model.HosttournamentParametersModelClass;
 import com.cricscore.deepakshano.cricscore.model.TournamentListModelClass;
+import com.cricscore.deepakshano.cricscore.pojo.UserList;
 import com.cricscore.deepakshano.cricscore.pojo.VerifyOtpPojo;
 
 import java.util.Map;
@@ -66,4 +67,6 @@ public interface APIMethods {
     Call<GeneralPojoClass> removeUser(@Path("groupId")String groupId, @Query("memberId") String memberId,@HeaderMap Map<String, String> headers);
 
 
+    @GET("user/all-users")
+    Call<UserList> inviteuser(@HeaderMap Map<String, String> headers);
 }
