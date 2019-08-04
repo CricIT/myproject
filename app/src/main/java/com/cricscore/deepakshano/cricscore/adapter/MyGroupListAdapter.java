@@ -70,7 +70,7 @@ public class MyGroupListAdapter extends RecyclerView.Adapter<MyGroupListAdapter.
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         try {
             holder.group_name.setText(getAllGroupsListPojoClass.get(position).getGroupName());
-            holder.group_members_count.setText(getAllGroupsListPojoClass.get(position).getMembers().size()+" Members");
+            holder.group_members_count.setText(getAllGroupsListPojoClass.get(position).getMembers().size() + " Members");
             holder.lyt_card_group_content.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -78,21 +78,18 @@ public class MyGroupListAdapter extends RecyclerView.Adapter<MyGroupListAdapter.
                         Intent intent = new Intent(context, GroupDetailsActivity.class);
                         intent.putExtra("group_id", getAllGroupsListPojoClass.get(position).getId());
                         context.startActivity(intent);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.getMessage();
                         e.printStackTrace();
                     }
                 }
             });
-
-
-
             holder.my_groups_more_icon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    try{
-                        showPopupMenu(holder.my_groups_more_icon, position,getAllGroupsListPojoClass.get(position).getId());
-                    }catch (Exception e){
+                    try {
+                        showPopupMenu(holder.my_groups_more_icon, position, getAllGroupsListPojoClass.get(position).getId());
+                    } catch (Exception e) {
                         e.printStackTrace();
                         e.getMessage();
                     }
@@ -108,41 +105,38 @@ public class MyGroupListAdapter extends RecyclerView.Adapter<MyGroupListAdapter.
         PopupMenu popup = new PopupMenu(iv_btn_menu.getContext(), iv_btn_menu);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.my_group_menu, popup.getMenu());
-        popup.setOnMenuItemClickListener(new MyMenuItemClickListener(position,groupid));
+        popup.setOnMenuItemClickListener(new MyMenuItemClickListener(position, groupid));
         popup.show();
     }
+
     @Override
     public int getItemCount() {
         return getAllGroupsListPojoClass.size();
     }
 
-
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         public ImageView groupImageView;
-        public TextView group_name,group_members_count;
+        public TextView group_name, group_members_count;
         public CardView lyt_card_group_content;
         public ImageView my_groups_more_icon;
+
         public ViewHolder(View view) {
             super(view);
             groupImageView = itemView.findViewById(R.id.groupImageView);
             group_name = itemView.findViewById(R.id.group_name);
             group_members_count = itemView.findViewById(R.id.group_members_count);
             lyt_card_group_content = itemView.findViewById(R.id.lyt_card_group_content);
-            my_groups_more_icon= itemView.findViewById(R.id.my_groups_more_icon);
+            my_groups_more_icon = itemView.findViewById(R.id.my_groups_more_icon);
         }
     }
 
-
-
     class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
-
         private int position;
-       private String groupid;
+        private String groupid;
 
         public MyMenuItemClickListener(int positon, String groupid) {
             this.position = positon;
-            this.groupid=groupid;
+            this.groupid = groupid;
         }
 
         @Override
@@ -150,7 +144,7 @@ public class MyGroupListAdapter extends RecyclerView.Adapter<MyGroupListAdapter.
             try {
                 switch (menuItem.getItemId()) {
                     case R.id.group_exit:
-
+                        exitgroup(groupid);
                         return true;
                     case R.id.group_delete:
                         deletegroup(groupid);
@@ -161,9 +155,10 @@ public class MyGroupListAdapter extends RecyclerView.Adapter<MyGroupListAdapter.
             }
             return false;
         }
-    }
 
-    private void deletegroup(String groupid) {
+
+    }
+    private void exitgroup(String groupid) {
         try {
             dialog = new ProgressDialog(context);
             dialog.setMessage("please wait.");
@@ -171,8 +166,9 @@ public class MyGroupListAdapter extends RecyclerView.Adapter<MyGroupListAdapter.
             dialog.show();
             APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
             Map<String, String> map = new HashMap<>();
-            map.put("Authorization","Bearer " + GlobalClass.usertoken);
-            Call<GeneralPojoClass> call = api.deletegroup(groupid, map);
+            map.put("Authorization", "Bearer " + GlobalClass.usertoken);
+            map.put("Content-Type","application/json");
+            Call<GeneralPojoClass> call = api.exitgroup(groupid, map);
             call.enqueue(new Callback<GeneralPojoClass>() {
                 @Override
                 public void onResponse(Call<GeneralPojoClass> call, Response<GeneralPojoClass> response) {
@@ -192,6 +188,7 @@ public class MyGroupListAdapter extends RecyclerView.Adapter<MyGroupListAdapter.
                                 showDialog.showCustomMessage((Activity) context, "Alert!!", context.getString(R.string.ERROR), false, false);
                             }
                         } else {
+                            dismissDialog();
                             CustomMessageHelper showDialog = new CustomMessageHelper(context);
                             showDialog.showCustomMessage((Activity) context, "Alert!!", response.message(), false, false);
                         }
@@ -223,17 +220,95 @@ public class MyGroupListAdapter extends RecyclerView.Adapter<MyGroupListAdapter.
                             showDialog.showCustomMessage((Activity) context, "Alert!!", context.getString(R.string.NETWORK_ISSUE), false, false);
                         }
                     } catch (Exception e) {
+                         dismissDialog();
                         e.printStackTrace();
 
                     }
                 }
             });
         } catch (Exception e) {
+            dismissDialog();
             e.printStackTrace();
             e.getMessage();
         }
 
     }
+    private void deletegroup(String groupid) {
+        try {
+            dialog = new ProgressDialog(context);
+            dialog.setMessage("please wait.");
+            dialog.setCancelable(false);
+            dialog.show();
+            APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
+            Map<String, String> map = new HashMap<>();
+            map.put("Authorization", "Bearer " + GlobalClass.usertoken);
+            Call<GeneralPojoClass> call = api.deletegroup(groupid, map);
+            call.enqueue(new Callback<GeneralPojoClass>() {
+                @Override
+                public void onResponse(Call<GeneralPojoClass> call, Response<GeneralPojoClass> response) {
+                    try {
+                        if (response.isSuccessful()) {
+                            if (response.body().getRequestStatus() == 1) {
+                                try {
+                                    dismissDialog();
+                                    CustomMessageHelper showDialog = new CustomMessageHelper(context);
+                                    showDialog.showCustomMessage((Activity) context, "Success!", "Group Deleted", false, false);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                dismissDialog();
+                                CustomMessageHelper showDialog = new CustomMessageHelper(context);
+                                showDialog.showCustomMessage((Activity) context, "Alert!!", context.getString(R.string.ERROR), false, false);
+                            }
+                        } else {
+                            dismissDialog();
+                            CustomMessageHelper showDialog = new CustomMessageHelper(context);
+                            showDialog.showCustomMessage((Activity) context, "Alert!!", response.message(), false, false);
+                        }
+                    } catch (Exception e) {
+                        dismissDialog();
+                        e.printStackTrace();
+                        e.getMessage();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<GeneralPojoClass> call, Throwable t) {
+                    try {
+                        Log.d("INSIDE FAILURE", "****");
+                        if (t instanceof SocketTimeoutException) {
+                            dismissDialog();
+                           /* hideView(progressBar);
+                            phoneNumber.setEnabled(true);
+                            ccp.setClickable(true);
+                            loginButton.setEnabled(true);*/
+                            CustomMessageHelper showDialog = new CustomMessageHelper(context);
+                            showDialog.showCustomMessage((Activity) context, "Alert!!", context.getString(R.string.SOCKET_ISSUE), false, false);
+                        } else {
+                            dismissDialog();
+                           /* hideView(progressBar);
+                            phoneNumber.setEnabled(true);
+                            ccp.setClickable(true);
+                            loginButton.setEnabled(true);*/
+                            CustomMessageHelper showDialog = new CustomMessageHelper(context);
+                            showDialog.showCustomMessage((Activity) context, "Alert!!", context.getString(R.string.NETWORK_ISSUE), false, false);
+                        }
+                    } catch (Exception e) {
+                        dismissDialog();
+                        e.printStackTrace();
+
+                    }
+                }
+            });
+        } catch (Exception e) {
+            dismissDialog();
+            e.printStackTrace();
+            e.getMessage();
+        }
+
+    }
+
     public void dismissDialog() {
         if (dialog.isShowing()) {
             dialog.dismiss();

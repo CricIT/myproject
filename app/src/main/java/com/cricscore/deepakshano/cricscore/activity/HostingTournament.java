@@ -245,7 +245,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
 
                 }
             });
-
             tv_day.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -259,7 +258,6 @@ public class HostingTournament extends AppCompatActivity implements DatePickerDi
                     }
                 }
             });
-
             tv_night.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

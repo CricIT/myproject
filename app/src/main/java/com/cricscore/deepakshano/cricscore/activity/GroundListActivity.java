@@ -49,8 +49,6 @@ public class GroundListActivity extends AppCompatActivity {
     private Context context;
     private LinearLayout parent;
     private String groundName;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,16 +81,8 @@ public class GroundListActivity extends AppCompatActivity {
             e.getMessage();
         }
     }
-
-
     private void getGroundList() {
         try {
-            /*dialog = new ProgressDialog(this, R.style.theme_mydialog);
-            dialog.getWindow().setGravity(Gravity.CENTER);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-            dialog.setMessage("Searching for grounds near you!");
-            dialog.setCancelable(true);
-            dialog.show();*/
             lat = 12.9166;
             lng = 77.6101;
             page = 0;
@@ -121,8 +111,6 @@ public class GroundListActivity extends AppCompatActivity {
                                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
                                 gnd_lst_recycler_view.setLayoutManager(layoutManager);
                                 gnd_lst_recycler_view.setAdapter(adapter);
-
-
                             }
                         }
                     } catch (Exception e) {

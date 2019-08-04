@@ -53,7 +53,7 @@ public class ClientServiceGenerator {
             return new Converter<ResponseBody, Object>() {
                 @Override
                 public Object convert(ResponseBody body) throws IOException {
-                    // Utility.Log("VMA","Response  Body "+body.contentLength());
+                    // Utility.0Log("VMA","Response  Body "+body.contentLength());
                     if (body.contentLength() == 0) return null;
                     return delegate.convert(body);
                 }
