@@ -43,6 +43,8 @@ public class GroupMemberListAdapter extends RecyclerView.Adapter<GroupMemberList
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         try {
+
+
             switch (membersLists.get(position).getRole()) {
                 case 1:
                     holder.tv_group_member_role.setText("Admin");
