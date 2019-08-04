@@ -87,6 +87,7 @@ public class GroupDetailsActivity extends AppCompatActivity {
                 }
             });
 
+
             btn_group_details_join_requests.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
