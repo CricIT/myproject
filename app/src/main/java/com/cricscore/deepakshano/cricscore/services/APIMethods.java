@@ -66,4 +66,6 @@ public interface APIMethods {
     Call<GeneralPojoClass> removeUser(@Path("groupId")String groupId, @Query("memberId") String memberId,@HeaderMap Map<String, String> headers);
 
 
+    @GET("user/all-users")
+    Call<UserList> inviteuser(@HeaderMap Map<String, String> headers);
 }
